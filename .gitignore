@@ -1,0 +1,8 @@
+# Ignore everything
+/*
+
+# Not these files
+!/*.cmd
+!/.gitattributes
+!/.gitignore
+!/README.md
