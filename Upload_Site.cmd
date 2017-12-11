@@ -4,7 +4,7 @@ SetLocal DisableDelayedExpansion EnableExtensions
 Title %~0
 
 Echo Before first run on the new OS, launch "PuTTY" to accept SSH key
-Echo Execute "sudo mkdir -m 777 %Destination_Path%" on the server to create site folder with proper access level
+Echo Execute "sudo chmod 777 %Destination_Path%" and "sudo chown -R %User_Name% %Destination_Path%" on the server to set proper access level to the site folder
 
 
 :: Variables
@@ -24,7 +24,7 @@ If "%Address%" Equ "" (
     Set Address=10.31.255.80
 )
 If "%Source_Path%" Equ "" (
-    Set Source_Path=D:\Projects\WebPlus\SKS\Release
+    Set Source_Path=D:\Projects\SKS
 )
 If "%Destination_Path%" Equ "" (
     Set Destination_Path=/var/www/html/sks
@@ -47,11 +47,8 @@ Echo.
 Call :ExecuteCommand "sudo /sbin/service httpd stop"
 Call :ExecuteCommand "sudo rm -r -f \"%Destination_Path%/*\""
 
-XCopy "D:\Projects\WebPlus\SKS\Miscellaneous\*.m3u" "D:\Projects\WebPlus\SKS\Release\assets\files\" /C /I /Q /G /H /R /K /Y /Z >Nul
 Call :UploadFiles "%Source_Path%" "%Destination_Path%"
 Call :ExecuteCommand "sudo /sbin/service httpd start"
-
-RmDir /S /Q "%Source_Path%" && MkDir "%Source_Path%"
 
 
 :: Exit
@@ -81,7 +78,7 @@ Exit /B 0
     Set Source_Path=%~1
     Set Destination_Path=%~2
 
-    Start "PSCP" /D "%Utils_Path%" /B /Wait "%Utils_Path%\PSCP.exe" -q -r -l "%Login%" -pw "%Password%" -batch -unsafe "%Source_Path%\*" "%Address%":"%Destination_Path%/"
+    Start "PSCP" /D "%Utils_Path%" /B /Wait "%Utils_Path%\PSCP.exe" -q -r -l "%Login%" -pw "%Password%" -batch -unsafe "%Source_Path%\*" "%Address%":"%Destination_Path%"
 
     EndLocal
 Exit /B 0
