@@ -4,7 +4,7 @@ SetLocal DisableDelayedExpansion EnableExtensions
 Title %~0
 
 Echo Before first run on the new OS, launch "PuTTY" to accept SSH key
-Echo Execute "sudo chmod 777 %Destination_Path%" and "sudo chown -R %User_Name% %Destination_Path%" on the server to set proper access level to the site folder
+Echo Execute "sudo chmod 777 Destination_Path" and "sudo chown -R User_Name Destination_Path" on the server to set proper access level for the site folder
 
 
 :: Variables
