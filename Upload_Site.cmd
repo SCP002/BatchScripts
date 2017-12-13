@@ -4,7 +4,7 @@ SetLocal DisableDelayedExpansion EnableExtensions
 Title %~0
 
 Echo Before first run on the new OS, launch "PuTTY" to accept SSH key
-Echo Execute "sudo chmod 777 Destination_Path" and "sudo chown -R User_Name Destination_Path" on the server to set proper access level for the site folder
+Echo Make sure you have "/etc/httpd/conf/httpd.conf": "AddDefaultCharset" set to "UTF-8"
 
 
 :: Variables
@@ -45,9 +45,13 @@ Set Utils_Path=D:\Programs
 :Upload
 Echo.
 Call :ExecuteCommand "sudo /sbin/service httpd stop"
-Call :ExecuteCommand "sudo rm -r -f \"%Destination_Path%/*\""
+Call :ExecuteCommand "sudo rm -rf %Destination_Path%"
+Call :ExecuteCommand "sudo mkdir %Destination_Path%"
+Call :ExecuteCommand "sudo chmod -R 777 %Destination_Path%"
+Call :ExecuteCommand "sudo chown -R %Login% %Destination_Path%"
 
 Call :UploadFiles "%Source_Path%" "%Destination_Path%"
+
 Call :ExecuteCommand "sudo /sbin/service httpd start"
 
 
