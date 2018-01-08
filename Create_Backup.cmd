@@ -34,7 +34,7 @@ For /D %%I In (
 :: ---------------------------------------------------------------------------------------------
 :Archivate
 Echo.
-Start "7-Zip" /D "%ProgramFiles%\7-Zip" /B /Wait "%ProgramFiles%\7-Zip\7z.exe" a -p%ArchivePwd% -r -sccUTF-8 -ssw -tzip -y -- "D:\%Date%.zip" "D:\Downloads" "D:\Drivers" "D:\Games\Minecraft" "D:\Information" "D:\Installers" "D:\Programs" "D:\Projects" "D:\Scripts"
+Start "7-Zip" /D "%ProgramFiles%\7-Zip" /B /Wait "%ProgramFiles%\7-Zip\7z.exe" a -mx=5 -mm=Deflate -p%ArchivePwd% -r -sccUTF-8 -spf -ssw -tzip -y -- "D:\%Date%.zip" "D:\Downloads" "D:\Drivers" "D:\Games\Minecraft" "D:\Information" "D:\Installers" "D:\Programs" "D:\Projects" "D:\Scripts"
 
 
 ::DeleteOld
