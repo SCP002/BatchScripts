@@ -10,6 +10,7 @@ Echo Before first run on the new OS, run "GDrive.exe list" to accept API key
 :: Variables
 :: ---------------------------------------------------------------------------------------------
 :SetVariables
+Echo.
 Set /P ArchivePwd=Archive password: 
 
 Set Utils_Path=D:\Programs
