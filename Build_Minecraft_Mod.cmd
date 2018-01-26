@@ -3,14 +3,10 @@ ChCp 65001
 SetLocal DisableDelayedExpansion EnableExtensions
 Title %~0
 
-Echo Before first run on the new OS, execute in the mod project folder next command:
-Echo Call "<Project_Folder>\gradlew.bat" setupDecompWorkspace idea
-
 
 :: Variables
 :: ---------------------------------------------------------------------------------------------
 :SetVariables
-Echo.
 Echo Press ^<Enter^> to set default value
 Set /P Project_Folder=Project folder: 
 
