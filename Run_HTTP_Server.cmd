@@ -8,11 +8,11 @@ Title %~0
 :: ---------------------------------------------------------------------------------------------
 :SetVariables
 Echo Press ^<Enter^> to set default value
-Set /P Share_Folder=Folder to share: 
+Set /P Share_Path=Path to share: 
 Set /P Port=Port: 
 
-If "%Share_Folder%" Equ "" (
-    Set Share_Folder=D:\Downloads
+If "%Share_Path%" Equ "" (
+    Set Share_Path=D:\Downloads
 )
 
 If "%Port%" Equ "" (
@@ -25,19 +25,19 @@ For /F "UseBackQ Tokens=2 Delims=:" %%I In (
 ) Do (
     Echo Local IP address:%%I
 )
-Echo Folder to share: %Share_Folder%
+Echo Path to share: %Share_Path%
 Echo Port: %Port%
 Echo.
 Pause
 
-Set Python_Folder=%LocalAppData%\Programs\Python\Python36
+Set Python_Path=%LocalAppData%\Programs\Python\Python36
 
 
 :: Run
 :: ---------------------------------------------------------------------------------------------
 :Run
 Echo.
-Start "HTTPServer" /D "%Share_Folder%" /B /Wait "%Python_Folder%\python.exe" -m "http.server" "%Port%"
+Start "HTTPServer" /D "%Share_Path%" /B /Wait "%Python_Path%\python.exe" -m "http.server" "%Port%"
 
 
 :: Exit

@@ -8,31 +8,31 @@ Title %~0
 :: ---------------------------------------------------------------------------------------------
 :SetVariables
 Echo Press ^<Enter^> to set default value
-Set /P Project_Folder=Project folder: 
+Set /P Project_Path=Project path: 
 
-If "%Project_Folder%" Equ "" (
-    Set Project_Folder=D:\Projects\DropOff
+If "%Project_Path%" Equ "" (
+    Set Project_Path=D:\Projects\DropOff
 )
 
 Echo.
-Echo Project folder: %Project_Folder%
+Echo Project path: %Project_Path%
 Echo.
 Pause
 
-Set Build_Folder=%Project_Folder%\build\libs
+Set Build_Path=%Project_Path%\build\libs
 
 
 :: Build
 :: ---------------------------------------------------------------------------------------------
 :Build
 Echo.
-CD /D "%Project_Folder%"
-Erase /F /Q /A "%Build_Folder%\*.jar"
-Erase /F /Q /A "%Project_Folder%\*.jar"
+CD /D "%Project_Path%"
+Erase /F /Q /A "%Build_Path%\*.jar"
+Erase /F /Q /A "%Project_Path%\*.jar"
 
-Call "%Project_Folder%\gradlew.bat" build
+Call "%Project_Path%\gradlew.bat" build
 
-XCopy "%Build_Folder%\*.jar" "%Project_Folder%\" /C /I /Q /G /H /R /K /Y /Z >Nul
+XCopy "%Build_Path%\*.jar" "%Project_Path%\" /C /I /Q /G /H /R /K /Y /Z >Nul
 
 
 :: Exit
