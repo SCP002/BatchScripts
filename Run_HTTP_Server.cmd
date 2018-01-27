@@ -20,6 +20,11 @@ If "%Port%" Equ "" (
 )
 
 Echo.
+For /F "UseBackQ Tokens=2 Delims=:" %%I In (
+    `IPConfig /All ^| FindStr /I "IPv4"`
+) Do (
+    Echo Local IP address:%%I
+)
 Echo Folder to share: %Share_Folder%
 Echo Port: %Port%
 Echo.
@@ -32,8 +37,6 @@ Set Python_Folder=%LocalAppData%\Programs\Python\Python36
 :: ---------------------------------------------------------------------------------------------
 :Run
 Echo.
-CD /D "%Share_Folder%"
-
 Start "HTTPServer" /D "%Share_Folder%" /B /Wait "%Python_Folder%\python.exe" -m "http.server" "%Port%"
 
 
