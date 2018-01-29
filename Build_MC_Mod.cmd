@@ -14,6 +14,8 @@ If "%Project_Path%" Equ "" (
     Set Project_Path=D:\Projects\DropOff
 )
 
+CD /D "%Project_Path%"
+
 Echo.
 Echo Project path: %Project_Path%
 Echo.
@@ -26,7 +28,6 @@ Set Build_Path=%Project_Path%\build\libs
 :: ---------------------------------------------------------------------------------------------
 :Build
 Echo.
-CD /D "%Project_Path%"
 Erase /F /Q /A "%Build_Path%\*.jar"
 Erase /F /Q /A "%Project_Path%\*.jar"
 
