@@ -59,6 +59,7 @@ Start "Git" /D "%Repo_Path%" /B /Wait "%Git_Exec%" checkout "%Target_Branch%"
 
 :: RebuildDevEnv
 :: ---------------------------------------------------------------------------------------------
+:RebuildDevEnv
 Echo.
 Call "%Repo_Path%\gradlew.bat" clean setupDecompWorkspace idea
 :: ---------------------------------------------------------------------------------------------
