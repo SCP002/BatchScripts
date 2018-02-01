@@ -7,21 +7,39 @@ Title %~0
 :: Variables
 :: ---------------------------------------------------------------------------------------------
 :SetVariables
-Echo Press ^<Enter^> to set default value
-Set /P Project_Path=Project path: 
+Echo Searching for Git executable...
 
-If "%Project_Path%" Equ "" (
-    Set Project_Path=D:\Projects\DropOff
+For /F "UseBackQ" %%I In (
+    `Dir /A /B /S "%SystemDrive%\git.exe" ^| FindStr /I "cmd\\git\.exe"`
+) Do (
+    Set Git_Exec=%%I
 )
 
-CD /D "%Project_Path%"
+If "%Git_Exec%" Equ "" (
+    Echo Git executable not found, aborting. ^
+    & GoTo Exit
+)
+
+Echo Git executable found: "%Git_Exec%"
 
 Echo.
-Echo Project path: %Project_Path%
+Echo Press ^<Enter^> to set default value
+Set /P Repo_Path=Repository path: 
+
+If "%Repo_Path%" Equ "" (
+    Set Repo_Path=D:\Projects\DropOff
+)
+
+CD /D "%Repo_Path%"
+
+Echo.
+Echo Repository path: %Repo_Path%
+Echo | Set /P X=Current branch: 
+Start "Git" /D "%Repo_Path%" /B /Wait "%Git_Exec%" branch | FindStr /I "\*"
 Echo.
 Pause
 
-Set Build_Path=%Project_Path%\build\libs
+Set Build_Path=%Repo_Path%\build\libs
 
 
 :: Build
@@ -29,11 +47,11 @@ Set Build_Path=%Project_Path%\build\libs
 :Build
 Echo.
 Erase /F /Q /A "%Build_Path%\*.jar"
-Erase /F /Q /A "%Project_Path%\*.jar"
+Erase /F /Q /A "%Repo_Path%\*.jar"
 
-Call "%Project_Path%\gradlew.bat" build
+Call "%Repo_Path%\gradlew.bat" build
 
-XCopy "%Build_Path%\*.jar" "%Project_Path%\" /C /I /Q /G /H /R /K /Y /Z >Nul
+XCopy "%Build_Path%\*.jar" "%Repo_Path%\" /C /I /Q /G /H /R /K /Y /Z >Nul
 
 
 :: Exit
