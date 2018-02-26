@@ -4,19 +4,23 @@ SetLocal DisableDelayedExpansion EnableExtensions
 Title %~0
 
 
+
 Echo Before first run on the new OS, run "GDrive.exe list" to accept API key
 
 
-:: Variables
+
+:: SetVariables
 :: ---------------------------------------------------------------------------------------------
 :SetVariables
 Echo.
 Set /P ArchivePwd=Archive password: 
 
+
 Set Utils_Path=D:\Programs
 
 Set Date=%Date:~-10%
 Set Date=%Date:/=.%
+
 
 
 :: Cleanup
@@ -31,11 +35,13 @@ For /D %%I In (
 )
 
 
+
 :: Archivate
 :: ---------------------------------------------------------------------------------------------
 :Archivate
 Echo.
 Start "7-Zip" /D "%ProgramFiles%\7-Zip" /B /Wait "%ProgramFiles%\7-Zip\7z.exe" a -mx=5 -mm=Deflate -p%ArchivePwd% -r -sccUTF-8 -spf -ssw -tzip -y -- "D:\%Date%.zip" "D:\Downloads" "D:\Drivers" "D:\Games\Minecraft" "D:\Information" "D:\Installers" "D:\Programs" "D:\Projects" "D:\Scripts"
+
 
 
 ::DeleteOld
@@ -51,6 +57,7 @@ For /F "UseBackQ Tokens=1 Delims= " %%I In (
 )
 
 
+
 ::UploadNew
 :: ---------------------------------------------------------------------------------------------
 :UploadNew
@@ -61,6 +68,7 @@ For /F "UseBackQ Tokens=1 Delims= " %%I In (
 ) Do (
     Start "GDrive" /D "%Utils_Path%" /B /Wait "%Utils_Path%\GDrive.exe" upload --parent "%%I" --delete "D:\%Date%.zip"
 )
+
 
 
 :: Exit

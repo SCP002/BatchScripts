@@ -9,40 +9,25 @@ Title %~0
 :: ---------------------------------------------------------------------------------------------
 :SetVariables
 Echo Press ^<Enter^> to set default value
-Set /P Share_Path=Path to share: 
-Set /P Port=Port: 
+Set /P Project_Path=Project path: 
 
-
-If "%Share_Path%" Equ "" (
-    Set Share_Path=D:\Downloads
+If "%Project_Path%" Equ "" (
+    Set Project_Path=D:\Projects\DropOff
 )
-
-If "%Port%" Equ "" (
-    Set Port=80
-)
-
-
-Set Python_Path=%LocalAppData%\Programs\Python\Python36
 
 
 Echo.
-For /F "UseBackQ Tokens=2 Delims=:" %%I In (
-    `IPConfig /All ^| FindStr /I "IPv4"`
-) Do (
-    Echo Local IP address:%%I
-)
-Echo Path to share: %Share_Path%
-Echo Port: %Port%
+Echo Project path: %Project_Path%
 Echo.
 Pause
 
 
 
-:: Run
+:: Setup
 :: ---------------------------------------------------------------------------------------------
-:Run
+:Setup
 Echo.
-Start "HTTPServer" /D "%Share_Path%" /B /Wait "%Python_Path%\python.exe" -m "http.server" "%Port%"
+Call "%Project_Path%\gradlew.bat" clean setupDecompWorkspace idea
 
 
 

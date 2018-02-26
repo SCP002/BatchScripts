@@ -3,22 +3,27 @@ ChCp 65001
 SetLocal DisableDelayedExpansion EnableExtensions
 Title %~0
 
+
+
 Echo Before first run on the new OS, launch "PuTTY" to accept SSH key
 Echo Make sure you have "/etc/httpd/conf/httpd.conf": "AddDefaultCharset" set to "UTF-8"
 
 
-:: Variables
+
+:: SetVariables
 :: ---------------------------------------------------------------------------------------------
 :SetVariables
 Echo.
 Set /P Login=Login: 
 Set /P Password=Password: 
 
+
 Echo.
 Echo Press ^<Enter^> to set default value
 Set /P Address=Address: 
 Set /P Source_Path=Source path: 
 Set /P Destination_Path=Destination path: 
+
 
 If "%Address%" Equ "" (
     Set Address=10.31.255.80
@@ -30,6 +35,10 @@ If "%Destination_Path%" Equ "" (
     Set Destination_Path=/var/www/html/sks
 )
 
+
+Set Utils_Path=D:\Programs
+
+
 Echo.
 Echo Address: %Address%
 Echo Source path: %Source_Path%
@@ -37,7 +46,6 @@ Echo Destination path: %Destination_Path%
 Echo.
 Pause
 
-Set Utils_Path=D:\Programs
 
 
 :: Upload
@@ -45,14 +53,20 @@ Set Utils_Path=D:\Programs
 :Upload
 Echo.
 Call :ExecuteCommand "sudo /sbin/service httpd stop"
+
+
 Call :ExecuteCommand "sudo rm -rf %Destination_Path%"
+
 Call :ExecuteCommand "sudo mkdir %Destination_Path%"
 Call :ExecuteCommand "sudo chmod -R 777 %Destination_Path%"
 Call :ExecuteCommand "sudo chown -R %Login% %Destination_Path%"
 
+
 Call :UploadFiles "%Source_Path%" "%Destination_Path%"
 
+
 Call :ExecuteCommand "sudo /sbin/service httpd start"
+
 
 
 :: Exit
@@ -66,6 +80,7 @@ Pause >Nul
 Exit /B 0
 
 
+
 :: Functions
 :: ---------------------------------------------------------------------------------------------
 :ExecuteCommand
@@ -76,6 +91,7 @@ Exit /B 0
 
     EndLocal
 Exit /B 0
+
 
 :UploadFiles
     SetLocal
