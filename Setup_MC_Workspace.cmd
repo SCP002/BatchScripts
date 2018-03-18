@@ -15,6 +15,8 @@ If "%Project_Path%" Equ "" (
     Set Project_Path=D:\Projects\DropOff
 )
 
+CD /D "%Project_Path%"
+
 
 Echo.
 Echo Project path: %Project_Path%
