@@ -5,11 +5,11 @@ Title %~0
 
 
 
-Echo Make sure "build.gradle" file have commented access terraformers in sourceSets section, for example:
+Echo Make sure "build.gradle" file have uncommented access terraformers in sourceSets section, for example:
 Echo sourceSets {
 Echo     main {
 Echo         resources {
-Echo             // exclude 'invtweaks_at.cfg'
+Echo             exclude 'invtweaks_at.cfg'
 Echo         }
 Echo     }
 Echo }
