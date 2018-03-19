@@ -5,21 +5,9 @@ Title %~0
 
 
 
-Echo Make sure "build.gradle" file have uncommented access terraformers in sourceSets section, for example:
-Echo sourceSets {
-Echo     main {
-Echo         resources {
-Echo             exclude 'invtweaks_at.cfg'
-Echo         }
-Echo     }
-Echo }
-
-
-
 :: SetVariables
 :: ---------------------------------------------------------------------------------------------
 :SetVariables
-Echo.
 Echo Press ^<Enter^> to set default value
 Set /P Project_Path=Project path: 
 
