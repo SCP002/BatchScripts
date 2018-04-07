@@ -31,7 +31,7 @@ For /D %%I In (
     "D:\Games\Minecraft\Instances\*"
 ) Do (
     RD /S /Q "%%I\backups" "%%I\crash-reports" "%%I\logs" ^
-    & Erase /F /S /Q /A "%%I\hs_err_pid*.log" "%%I\journeymap\data\Death*.json" "%%I\saves\inventory-*-death-*.dat" "%%I\saves\inventory-*-grave-*.dat"
+    & Erase /F /S /Q /A "%%I\hs_err_pid*.log" "%%I\journeymap\data\Death*.json" "%%I\saves\inventory-*-death-*.dat" "%%I\saves\inventory-*-grave-*.dat" "%%I\saves\*graveLogs.log"
 )
 
 
