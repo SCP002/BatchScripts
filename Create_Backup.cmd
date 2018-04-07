@@ -30,8 +30,15 @@ Echo.
 For /D %%I In (
     "D:\Games\Minecraft\Instances\*"
 ) Do (
-    RD /S /Q "%%I\backups" "%%I\crash-reports" "%%I\logs" ^
-    & Erase /F /S /Q /A "%%I\hs_err_pid*.log" "%%I\journeymap\data\Death*.json" "%%I\saves\inventory-*-death-*.dat" "%%I\saves\inventory-*-grave-*.dat" "%%I\saves\*graveLogs.log"
+    RD /S /Q "%%I\backups" ^
+    & RD /S /Q "%%I\crash-reports" ^
+    & RD /S /Q "%%I\logs" ^
+    & Erase /F /S /Q /A ^
+    & Erase /F /S /Q /A "%%I\hs_err_pid*.log" ^
+    & Erase /F /S /Q /A "%%I\journeymap\data\Death*.json" ^
+    & Erase /F /S /Q /A "%%I\saves\inventory-*-death-*.dat" ^
+    & Erase /F /S /Q /A "%%I\saves\inventory-*-grave-*.dat" ^
+    & Erase /F /S /Q /A "%%I\saves\*graveLogs.log"
 )
 
 
@@ -40,12 +47,22 @@ For /D %%I In (
 :: ---------------------------------------------------------------------------------------------
 :Archivate
 Echo.
-Start "7-Zip" /D "%ProgramFiles%\7-Zip" /B /Wait "%ProgramFiles%\7-Zip\7z.exe" a -mx=5 -mm=Deflate -p%ArchivePwd% -r -sccUTF-8 -spf -ssw -tzip -y -- "D:\%Date%.zip" "D:\Downloads" "D:\Drivers" "D:\Games\Minecraft" "D:\Information" "D:\Installers" "D:\Programs" "D:\Projects" "D:\Scripts"
+Start "7-Zip" /D "%ProgramFiles%\7-Zip" /B /Wait "%ProgramFiles%\7-Zip\7z.exe" a -mx=5 -mm=Deflate -p%ArchivePwd% -r -sccUTF-8 -spf -ssw -tzip -y -- ^
+    "D:\%Date%.zip" ^
+    "D:\Downloads" ^
+    "D:\Drivers" ^
+    "D:\Games\Minecraft" ^
+    "D:\Information" ^
+    "D:\Installers" ^
+    "D:\Programs" ^
+    "D:\Projects" ^
+    "D:\Scripts"
 
 
 
 ::DeleteOld
-::Using a `Call` command with the label inside the `For ... In (...)` does not work in CMD (without big workarounds), so no something like `Call :ExecuteCommand -args` used below.
+::Using a `Call` command with the label inside the `For ... In (...)` does not work in CMD (without big workarounds).
+::So no something like `Call :ExecuteCommand -args` used below.
 :: ---------------------------------------------------------------------------------------------
 :DeleteOld
 Echo.
