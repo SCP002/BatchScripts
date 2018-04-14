@@ -35,6 +35,7 @@ For /D %%I In (
     & RD /S /Q "%%I\logs" ^
     & Erase /F /S /Q /A "%%I\hs_err_pid*.log" ^
     & Erase /F /S /Q /A "%%I\journeymap\data\Death*.json" ^
+    & Erase /F /S /Q /A "%%I\reports\pending-crash-*.json" ^
     & Erase /F /S /Q /A "%%I\saves\inventory-*-death-*.dat" ^
     & Erase /F /S /Q /A "%%I\saves\inventory-*-grave-*.dat" ^
     & Erase /F /S /Q /A "%%I\saves\*graveLogs.log"
