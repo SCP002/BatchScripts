@@ -60,9 +60,9 @@ Start "7-Zip" /D "%ProgramFiles%\7-Zip" /B /Wait "%ProgramFiles%\7-Zip\7z.exe" a
 
 
 
-::DeleteOld
-::Using a `Call` command with the label inside the `For ... In (...)` does not work in CMD (without big workarounds).
-::So no something like `Call :ExecuteCommand -args` used below.
+:: DeleteOld
+:: Using a `Call` command with the label inside the `For ... In (...)` does not work in CMD (without big workarounds).
+:: So no something like `Call :ExecuteCommand -args` used below.
 :: ---------------------------------------------------------------------------------------------
 :DeleteOld
 Echo.
@@ -75,7 +75,7 @@ For /F "UseBackQ Tokens=1 Delims= " %%I In (
 
 
 
-::UploadNew
+:: UploadNew
 :: ---------------------------------------------------------------------------------------------
 :UploadNew
 Echo.
