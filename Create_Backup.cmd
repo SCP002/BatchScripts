@@ -13,7 +13,7 @@ Echo Before first run on the new OS, run "GDrive.exe list" to accept API key
 :: ---------------------------------------------------------------------------------------------
 :SetVariables
 Echo.
-Set /P ArchivePwd=Archive password: 
+Set /P Archive_Pwd=Archive password: 
 
 
 Set Utils_Path=D:\Programs
@@ -27,19 +27,12 @@ Set Date=%Date:/=.%
 :: ---------------------------------------------------------------------------------------------
 :Cleanup
 Echo.
-For /D %%I In (
-    "D:\Games\Minecraft\Instances\*"
-) Do (
-    RD /S /Q "%%I\backups" ^
-    & RD /S /Q "%%I\crash-reports" ^
-    & RD /S /Q "%%I\logs" ^
-    & Erase /F /S /Q /A "%%I\hs_err_pid*.log" ^
-    & Erase /F /S /Q /A "%%I\journeymap\data\Death*.json" ^
-    & Erase /F /S /Q /A "%%I\reports\pending-crash-*.json" ^
-    & Erase /F /S /Q /A "%%I\saves\inventory-*-death-*.dat" ^
-    & Erase /F /S /Q /A "%%I\saves\inventory-*-grave-*.dat" ^
-    & Erase /F /S /Q /A "%%I\saves\*graveLogs.log"
-)
+Set MC_Path=D:\Games\Minecraft
+
+RD /S /Q "%MC_Path%\crash-reports"
+RD /S /Q "%MC_Path%\logs"
+
+Erase /F /S /Q /A "%MC_Path%\hs_err_pid*.log"
 
 
 
@@ -47,7 +40,7 @@ For /D %%I In (
 :: ---------------------------------------------------------------------------------------------
 :Archivate
 Echo.
-Start "7-Zip" /D "%ProgramFiles%\7-Zip" /B /Wait "%ProgramFiles%\7-Zip\7z.exe" a -mx=5 -mm=Deflate -p%ArchivePwd% -r -sccUTF-8 -spf -ssw -tzip -y -- ^
+Start "7-Zip" /D "%ProgramFiles%\7-Zip" /B /Wait "%ProgramFiles%\7-Zip\7z.exe" a -mx=5 -mm=Deflate -p%Archive_Pwd% -r -sccUTF-8 -spf -ssw -tzip -y -- ^
     "D:\%Date%.zip" ^
     "D:\Downloads" ^
     "D:\Drivers" ^
