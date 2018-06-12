@@ -16,6 +16,7 @@ Echo.
 Set /P Archive_Pwd=Archive password: 
 
 
+Set MC_Path=D:\Games\Minecraft
 Set Utils_Path=D:\Programs
 
 Set Date=%Date:~-10%
@@ -27,8 +28,6 @@ Set Date=%Date:/=.%
 :: ---------------------------------------------------------------------------------------------
 :Cleanup
 Echo.
-Set MC_Path=D:\Games\Minecraft
-
 RD /S /Q "%MC_Path%\crash-reports"
 RD /S /Q "%MC_Path%\logs"
 
