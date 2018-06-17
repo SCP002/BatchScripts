@@ -19,8 +19,8 @@ Set /P Archive_Pwd=Archive password:
 Set MC_Path=D:\Games\Minecraft
 Set Utils_Path=D:\Programs
 
-Set Date=%Date:~-10%
-Set Date=%Date:/=.%
+Set Archive_Name=%Date:~-10%
+Set Archive_Name=%Archive_Name:/=.%
 
 
 
@@ -40,7 +40,7 @@ Erase /F /S /Q /A "%MC_Path%\hs_err_pid*.log"
 :Archivate
 Echo.
 Start "7-Zip" /D "%ProgramFiles%\7-Zip" /B /Wait "%ProgramFiles%\7-Zip\7z.exe" a -mx=5 -mm=Deflate -p%Archive_Pwd% -r -sccUTF-8 -spf -ssw -tzip -y -- ^
-    "D:\%Date%.zip" ^
+    "D:\%Archive_Name%.zip" ^
     "D:\Downloads" ^
     "D:\Drivers" ^
     "D:\Games\Minecraft" ^
@@ -75,7 +75,7 @@ For /F "UseBackQ Tokens=1 Delims= " %%I In (
     `Start "GDrive" /D "%Utils_Path%" /B /Wait "%Utils_Path%\GDrive.exe" list --max "0" --name-width "0" --absolute ^
         ^| FindStr /I "Backups"`
 ) Do (
-    Start "GDrive" /D "%Utils_Path%" /B /Wait "%Utils_Path%\GDrive.exe" upload --parent "%%I" --delete "D:\%Date%.zip"
+    Start "GDrive" /D "%Utils_Path%" /B /Wait "%Utils_Path%\GDrive.exe" upload --parent "%%I" --delete "D:\%Archive_Name%.zip"
 )
 
 
