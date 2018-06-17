@@ -73,7 +73,7 @@ For /F "UseBackQ Tokens=1 Delims= " %%I In (
 Echo.
 For /F "UseBackQ Tokens=1 Delims= " %%I In (
     `Start "GDrive" /D "%Utils_Path%" /B /Wait "%Utils_Path%\GDrive.exe" list --max "0" --name-width "0" --absolute ^
-        ^| FindStr /I "Backups"`
+        ^| FindStr /I ".*Backups.*dir.*"`
 ) Do (
     Start "GDrive" /D "%Utils_Path%" /B /Wait "%Utils_Path%\GDrive.exe" upload --parent "%%I" --delete "D:\%Archive_Name%.zip"
 )
