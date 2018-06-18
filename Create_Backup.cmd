@@ -22,6 +22,18 @@ Set Utils_Path=D:\Programs
 Set Archive_Name=%Date:~-10%
 Set Archive_Name=%Archive_Name:/=.%
 
+Set Exit_Color=0A
+
+
+
+:: ArchiveCheck
+:: ---------------------------------------------------------------------------------------------
+:ArchiveCheck
+Echo.
+If Exist "D:\%Archive_Name%.zip" (
+    GoTo GetOldID
+)
+
 
 
 :: Cleanup
@@ -52,17 +64,15 @@ Start "7-Zip" /D "%ProgramFiles%\7-Zip" /B /Wait "%ProgramFiles%\7-Zip\7z.exe" a
 
 
 
-:: DeleteOld
-:: Using a `Call` command with the label inside the `For ... In (...)` does not work in CMD (without big workarounds).
-:: So no something like `Call :ExecuteCommand -args` used below.
+:: GetOldID
 :: ---------------------------------------------------------------------------------------------
-:DeleteOld
+:GetOldID
 Echo.
 For /F "UseBackQ Tokens=1 Delims= " %%I In (
     `Start "GDrive" /D "%Utils_Path%" /B /Wait "%Utils_Path%\GDrive.exe" list --max "0" --name-width "0" --absolute ^
         ^| FindStr /I ".*Backups\\.*\.zip.*bin.*"`
 ) Do (
-    Start "GDrive" /D "%Utils_Path%" /B /Wait "%Utils_Path%\GDrive.exe" delete "%%I"
+    Set Old_ID=%%I
 )
 
 
@@ -75,8 +85,36 @@ For /F "UseBackQ Tokens=1 Delims= " %%I In (
     `Start "GDrive" /D "%Utils_Path%" /B /Wait "%Utils_Path%\GDrive.exe" list --max "0" --name-width "0" --absolute ^
         ^| FindStr /I ".*Backups.*dir.*"`
 ) Do (
-    Start "GDrive" /D "%Utils_Path%" /B /Wait "%Utils_Path%\GDrive.exe" upload --parent "%%I" --delete "D:\%Archive_Name%.zip"
+    Start "GDrive" /D "%Utils_Path%" /B /Wait "%Utils_Path%\GDrive.exe" upload --parent "%%I" "D:\%Archive_Name%.zip" ^
+    & Set Upload_Error_Level=%ErrorLevel%
 )
+
+
+
+:: UploadCheck
+:: ---------------------------------------------------------------------------------------------
+:UploadCheck
+Echo.
+If "%Upload_Error_Level%" Neq "0" (
+    Set Exit_Color=0C ^
+    & GoTo Exit
+)
+
+
+
+:: DeleteOld
+:: ---------------------------------------------------------------------------------------------
+:DeleteOld
+Echo.
+Start "GDrive" /D "%Utils_Path%" /B /Wait "%Utils_Path%\GDrive.exe" delete "%Old_ID%"
+
+
+
+:: DeleteLocal
+:: ---------------------------------------------------------------------------------------------
+:DeleteLocal
+Echo.
+Erase /F /Q /A "D:\%Archive_Name%.zip"
 
 
 
@@ -84,7 +122,7 @@ For /F "UseBackQ Tokens=1 Delims= " %%I In (
 :: ---------------------------------------------------------------------------------------------
 :Exit
 PowerShell -Command "& { [System.Console]::Beep(500, 1000); }"
-Color 0A
+Color %Exit_Color%
 Echo.
 Echo Done. Press any key to exit...
 Pause >Nul
