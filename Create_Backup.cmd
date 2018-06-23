@@ -13,9 +13,6 @@ Echo Before first run on the new OS, run "GDrive.exe list" to accept API key
 :: ---------------------------------------------------------------------------------------------
 :SetVariables
 Echo.
-Set /P Archive_Pwd=Archive password: 
-
-
 Set MC_Path=D:\Games\Minecraft
 Set Utils_Path=D:\Programs
 
@@ -51,6 +48,9 @@ Erase /F /S /Q /A "%MC_Path%\hs_err_pid*.log"
 :: ---------------------------------------------------------------------------------------------
 :Archivate
 Echo.
+Set /P Archive_Pwd=Archive password: 
+
+
 Start "7-Zip" /D "%ProgramFiles%\7-Zip" /B /Wait "%ProgramFiles%\7-Zip\7z.exe" a -mx=5 -mm=Deflate -p%Archive_Pwd% -r -sccUTF-8 -spf -ssw -tzip -y -- ^
     "D:\%Archive_Name%.zip" ^
     "D:\Downloads" ^
