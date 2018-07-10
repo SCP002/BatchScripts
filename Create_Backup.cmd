@@ -85,8 +85,8 @@ For /F "UseBackQ Tokens=1 Delims= " %%I In (
     `Start "GDrive" /D "%Utils_Path%" /B /Wait "%Utils_Path%\GDrive.exe" list --max "0" --name-width "0" --absolute ^
         ^| FindStr /I ".*Backups.*dir.*"`
 ) Do (
-    Start "GDrive" /D "%Utils_Path%" /B /Wait "%Utils_Path%\GDrive.exe" upload --parent "%%I" "D:\%Archive_Name%.zip" ^
-    & Set Upload_Error_Level=%ErrorLevel%
+    Call "%Utils_Path%\GDrive.exe" upload --parent "%%I" "D:\%Archive_Name%.zip" ^
+    || Set Upload_Failed=True
 )
 
 
@@ -95,7 +95,7 @@ For /F "UseBackQ Tokens=1 Delims= " %%I In (
 :: ---------------------------------------------------------------------------------------------
 :UploadCheck
 Echo.
-If "%Upload_Error_Level%" Neq "0" (
+If "%Upload_Failed%" Equ "True" (
     Set Exit_Color=0C ^
     & GoTo Exit
 )
