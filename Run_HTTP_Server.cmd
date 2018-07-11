@@ -27,7 +27,8 @@ Set Python_Path=%LocalAppData%\Programs\Python\Python36
 
 Echo.
 For /F "UseBackQ Tokens=2 Delims=:" %%I In (
-    `IPConfig /All ^| FindStr /I "IPv4"`
+    `IPConfig /All ^
+    ^| FindStr /R /C:".*IPv4 Address.*"`
 ) Do (
     Echo Local IP address:%%I
 )
