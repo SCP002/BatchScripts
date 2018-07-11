@@ -70,7 +70,7 @@ Start "7-Zip" /D "%ProgramFiles%\7-Zip" /B /Wait "%ProgramFiles%\7-Zip\7z.exe" a
 Echo.
 For /F "UseBackQ Tokens=1 Delims= " %%I In (
     `Start "GDrive" /D "%Utils_Path%" /B /Wait "%Utils_Path%\GDrive.exe" list --max "0" --name-width "0" --absolute ^
-        ^| FindStr /I ".*Backups\\.*\.zip.*bin.*"`
+    ^| FindStr /R /C:".*Backups\\.*\.zip.*bin.*"`
 ) Do (
     Set Old_ID=%%I
 )
@@ -83,9 +83,10 @@ For /F "UseBackQ Tokens=1 Delims= " %%I In (
 Echo.
 For /F "UseBackQ Tokens=1 Delims= " %%I In (
     `Start "GDrive" /D "%Utils_Path%" /B /Wait "%Utils_Path%\GDrive.exe" list --max "0" --name-width "0" --absolute ^
-        ^| FindStr /I ".*Backups.*dir.*"`
+    ^| FindStr /R /C:".*Backups.*dir.*"`
 ) Do (
     Call "%Utils_Path%\GDrive.exe" upload --parent "%%I" "D:\%Archive_Name%.zip" ^
+    | FindStr /R /C:".Uploaded .* at .*, total .*" ^
     || Set Upload_Failed=True
 )
 
