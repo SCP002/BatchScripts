@@ -86,7 +86,7 @@ For /F "UseBackQ Tokens=1 Delims= " %%I In (
     ^| FindStr /R /C:".*Backups.*dir.*"`
 ) Do (
     Call "%Utils_Path%\GDrive.exe" upload --parent "%%I" "D:\%Archive_Name%.zip" ^
-    | FindStr /R /C:".Uploaded .* at .*, total .*" ^
+    | FindStr /R /C:"Uploaded .* at .*, total .*" ^
     || Set Upload_Failed=True
 )
 
