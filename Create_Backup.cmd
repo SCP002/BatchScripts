@@ -5,7 +5,7 @@ Title %~0
 
 
 
-Echo Before first run on the new OS, run "GDrive.exe list" to accept API key
+Echo Before first run on the new OS, run "GDrive.exe about" to perform authentication
 
 
 
