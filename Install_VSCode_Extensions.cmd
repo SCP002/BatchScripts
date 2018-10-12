@@ -5,23 +5,31 @@ Title %~0
 
 
 
+:: SetVariables
+:: ---------------------------------------------------------------------------------------------
+:SetVariables
+Echo.
+Set VSCode_Path=%LocalAppData%\Programs\Microsoft VS Code\bin
+
+
+
 :: InstallExtensions
 :: ---------------------------------------------------------------------------------------------
 :InstallExtensions
 Echo.
-Call code "--install-extension" "Angular.ng-template"
-Call code "--install-extension" "christian-kohler.path-intellisense"
-Call code "--install-extension" "dbaeumer.vscode-eslint"
-Call code "--install-extension" "ecmel.vscode-html-css"
-Call code "--install-extension" "EditorConfig.EditorConfig"
-Call code "--install-extension" "eg2.tslint"
-Call code "--install-extension" "eg2.vscode-npm-script"
-Call code "--install-extension" "Gruntfuggly.todo-tree"
-Call code "--install-extension" "isudox.vscode-jetbrains-keybindings"
-Call code "--install-extension" "michelemelluso.code-beautifier"
-Call code "--install-extension" "mike-co.import-sorter"
-Call code "--install-extension" "rexebin.dracula"
-Call code "--install-extension" "Tyriar.sort-lines"
+Call "%VSCode_Path%\code.cmd" "--install-extension" "Angular.ng-template"
+Call "%VSCode_Path%\code.cmd" "--install-extension" "christian-kohler.path-intellisense"
+Call "%VSCode_Path%\code.cmd" "--install-extension" "dbaeumer.vscode-eslint"
+Call "%VSCode_Path%\code.cmd" "--install-extension" "ecmel.vscode-html-css"
+Call "%VSCode_Path%\code.cmd" "--install-extension" "EditorConfig.EditorConfig"
+Call "%VSCode_Path%\code.cmd" "--install-extension" "eg2.tslint"
+Call "%VSCode_Path%\code.cmd" "--install-extension" "eg2.vscode-npm-script"
+Call "%VSCode_Path%\code.cmd" "--install-extension" "Gruntfuggly.todo-tree"
+Call "%VSCode_Path%\code.cmd" "--install-extension" "isudox.vscode-jetbrains-keybindings"
+Call "%VSCode_Path%\code.cmd" "--install-extension" "michelemelluso.code-beautifier"
+Call "%VSCode_Path%\code.cmd" "--install-extension" "mike-co.import-sorter"
+Call "%VSCode_Path%\code.cmd" "--install-extension" "rexebin.dracula"
+Call "%VSCode_Path%\code.cmd" "--install-extension" "Tyriar.sort-lines"
 
 
 
