@@ -13,6 +13,8 @@ Echo Before first run on the new OS, run "GDrive.exe about" to perform authentic
 :: ---------------------------------------------------------------------------------------------
 :SetVariables
 Echo.
+Echo SetVariables...
+
 Set MC_Path=D:\Games\Minecraft
 Set Utils_Path=D:\Programs
 
@@ -27,6 +29,8 @@ Set Exit_Color=0A
 :: ---------------------------------------------------------------------------------------------
 :ArchiveCheck
 Echo.
+Echo ArchiveCheck...
+
 If Exist "D:\%Archive_Name%.zip" (
     GoTo GetOldID
 )
@@ -37,6 +41,8 @@ If Exist "D:\%Archive_Name%.zip" (
 :: ---------------------------------------------------------------------------------------------
 :Cleanup
 Echo.
+Echo Cleanup...
+
 RD /S /Q "%MC_Path%\crash-reports"
 RD /S /Q "%MC_Path%\logs"
 
@@ -48,6 +54,8 @@ Erase /F /S /Q /A "%MC_Path%\hs_err_pid*.log"
 :: ---------------------------------------------------------------------------------------------
 :Archivate
 Echo.
+Echo Archivate...
+
 Set /P Archive_Pwd=Archive password: 
 
 
@@ -68,6 +76,8 @@ Start "7-Zip" /D "%ProgramFiles%\7-Zip" /B /Wait "%ProgramFiles%\7-Zip\7z.exe" a
 :: ---------------------------------------------------------------------------------------------
 :GetOldID
 Echo.
+Echo GetOldID...
+
 For /F "UseBackQ Tokens=1 Delims= " %%I In (
     `Start "GDrive" /D "%Utils_Path%" /B /Wait "%Utils_Path%\GDrive.exe" list --max "0" --name-width "0" --absolute ^
     ^| FindStr /R /C:".*Backups\\.*\.zip.*bin.*"`
@@ -81,6 +91,8 @@ For /F "UseBackQ Tokens=1 Delims= " %%I In (
 :: ---------------------------------------------------------------------------------------------
 :UploadNew
 Echo.
+Echo UploadNew...
+
 For /F "UseBackQ Tokens=1 Delims= " %%I In (
     `Start "GDrive" /D "%Utils_Path%" /B /Wait "%Utils_Path%\GDrive.exe" list --max "0" --name-width "0" --absolute ^
     ^| FindStr /R /C:".*Backups.*dir.*"`
@@ -96,6 +108,8 @@ For /F "UseBackQ Tokens=1 Delims= " %%I In (
 :: ---------------------------------------------------------------------------------------------
 :UploadCheck
 Echo.
+Echo UploadCheck...
+
 If "%Upload_Failed%" Equ "True" (
     Set Exit_Color=0C
     GoTo Exit
@@ -107,6 +121,8 @@ If "%Upload_Failed%" Equ "True" (
 :: ---------------------------------------------------------------------------------------------
 :DeleteOld
 Echo.
+Echo DeleteOld...
+
 Start "GDrive" /D "%Utils_Path%" /B /Wait "%Utils_Path%\GDrive.exe" delete "%Old_ID%"
 
 
@@ -115,6 +131,8 @@ Start "GDrive" /D "%Utils_Path%" /B /Wait "%Utils_Path%\GDrive.exe" delete "%Old
 :: ---------------------------------------------------------------------------------------------
 :DeleteLocal
 Echo.
+Echo DeleteLocal...
+
 Erase /F /Q /A "D:\%Archive_Name%.zip"
 
 
@@ -122,6 +140,9 @@ Erase /F /Q /A "D:\%Archive_Name%.zip"
 :: Exit
 :: ---------------------------------------------------------------------------------------------
 :Exit
+Echo.
+Echo Exit...
+
 PowerShell -Command "& { [System.Console]::Beep(500, 1000); }"
 Color %Exit_Color%
 Echo.

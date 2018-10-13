@@ -13,6 +13,8 @@ Echo Be sure that source branch exist (for example, newly initialized repository
 :: ---------------------------------------------------------------------------------------------
 :SetVariables
 Echo.
+Echo SetVariables...
+
 Echo Searching for Git executable...
 
 For /F "UseBackQ" %%I In (
@@ -77,6 +79,8 @@ Pause
 :: ---------------------------------------------------------------------------------------------
 :AddWorktree
 Echo.
+Echo AddWorktree...
+
 Start "Git" /D "%Repo_Path%" /B /Wait "%Git_Exec%" worktree add -b "%New_Branch_Name%" "%New_Worktree_Folder%" "%From_Branch%"
 
 
@@ -84,6 +88,9 @@ Start "Git" /D "%Repo_Path%" /B /Wait "%Git_Exec%" worktree add -b "%New_Branch_
 :: Exit
 :: ---------------------------------------------------------------------------------------------
 :Exit
+Echo.
+Echo Exit...
+
 PowerShell -Command "& { [System.Console]::Beep(500, 1000); }"
 Color 0A
 Echo.

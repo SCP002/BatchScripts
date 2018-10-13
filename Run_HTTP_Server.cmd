@@ -8,6 +8,9 @@ Title %~0
 :: SetVariables
 :: ---------------------------------------------------------------------------------------------
 :SetVariables
+Echo.
+Echo SetVariables...
+
 Echo Press ^<Enter^> to set default value
 Set /P Share_Path=Path to share: 
 Set /P Port=Port: 
@@ -43,6 +46,8 @@ Pause
 :: ---------------------------------------------------------------------------------------------
 :Run
 Echo.
+Echo Run...
+
 Start "HTTPServer" /D "%Share_Path%" /B /Wait "%Python_Path%\python.exe" -m "http.server" "%Port%"
 
 
@@ -50,6 +55,9 @@ Start "HTTPServer" /D "%Share_Path%" /B /Wait "%Python_Path%\python.exe" -m "htt
 :: Exit
 :: ---------------------------------------------------------------------------------------------
 :Exit
+Echo.
+Echo Exit...
+
 PowerShell -Command "& { [System.Console]::Beep(500, 1000); }"
 Color 0A
 Echo.

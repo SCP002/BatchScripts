@@ -14,6 +14,8 @@ Echo Make sure you have "/etc/httpd/conf/httpd.conf": "AddDefaultCharset" set to
 :: ---------------------------------------------------------------------------------------------
 :SetVariables
 Echo.
+Echo SetVariables...
+
 Set /P Login=Login: 
 Set /P Password=Password: 
 
@@ -52,6 +54,8 @@ Pause
 :: ---------------------------------------------------------------------------------------------
 :Upload
 Echo.
+Echo Upload...
+
 Call :ExecuteCommand "sudo /sbin/service httpd stop"
 
 
@@ -72,6 +76,9 @@ Call :ExecuteCommand "sudo /sbin/service httpd start"
 :: Exit
 :: ---------------------------------------------------------------------------------------------
 :Exit
+Echo.
+Echo Exit...
+
 PowerShell -Command "& { [System.Console]::Beep(500, 1000); }"
 Color 0A
 Echo.
