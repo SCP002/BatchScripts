@@ -40,8 +40,6 @@ Call "%VSCode_Path%\code.cmd" "--install-extension" "Tyriar.sort-lines"
 :: Exit
 :: ---------------------------------------------------------------------------------------------
 :Exit
-Echo.
-Echo Exit...
 
 PowerShell -Command "& { [System.Console]::Beep(500, 1000); }"
 Color 0A

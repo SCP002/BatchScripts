@@ -88,8 +88,6 @@ Start "Git" /D "%Repo_Path%" /B /Wait "%Git_Exec%" worktree add -b "%New_Branch_
 :: Exit
 :: ---------------------------------------------------------------------------------------------
 :Exit
-Echo.
-Echo Exit...
 
 PowerShell -Command "& { [System.Console]::Beep(500, 1000); }"
 Color 0A

@@ -76,8 +76,6 @@ Call :ExecuteCommand "sudo /sbin/service httpd start"
 :: Exit
 :: ---------------------------------------------------------------------------------------------
 :Exit
-Echo.
-Echo Exit...
 
 PowerShell -Command "& { [System.Console]::Beep(500, 1000); }"
 Color 0A

@@ -55,8 +55,6 @@ Start "HTTPServer" /D "%Share_Path%" /B /Wait "%Python_Path%\python.exe" -m "htt
 :: Exit
 :: ---------------------------------------------------------------------------------------------
 :Exit
-Echo.
-Echo Exit...
 
 PowerShell -Command "& { [System.Console]::Beep(500, 1000); }"
 Color 0A

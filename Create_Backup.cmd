@@ -162,8 +162,6 @@ Erase /F /Q /A "D:\%Archive_Name%.zip"
 :: Exit
 :: ---------------------------------------------------------------------------------------------
 :Exit
-Echo.
-Echo Exit...
 
 If "%Current_Error_Code%" Neq "0" (
     Color 0C
