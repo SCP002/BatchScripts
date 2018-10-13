@@ -19,7 +19,7 @@ Echo Searching for Git executable...
 
 For /F "UseBackQ" %%I In (
     `Dir /A /B /S "%SystemDrive%\git.exe" ^
-    ^| FindStr /R /C:".*\\cmd\\git\.exe"`
+        ^| FindStr /R /C:".*\\cmd\\git\.exe"`
 ) Do (
     Set Git_Exec=%%I
 )

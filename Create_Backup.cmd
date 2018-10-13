@@ -80,7 +80,7 @@ Echo GetOldID...
 
 For /F "UseBackQ Tokens=1 Delims= " %%I In (
     `Start "GDrive" /D "%Utils_Path%" /B /Wait "%Utils_Path%\GDrive.exe" list --max "0" --name-width "0" --absolute ^
-    ^| FindStr /R /C:".*Backups\\.*\.zip.*bin.*"`
+        ^| FindStr /R /C:".*Backups\\.*\.zip.*bin.*"`
 ) Do (
     Set Old_ID=%%I
 )
@@ -108,12 +108,12 @@ Set Current_Error_Code=1
 
 For /F "UseBackQ Tokens=1 Delims= " %%I In (
     `Start "GDrive" /D "%Utils_Path%" /B /Wait "%Utils_Path%\GDrive.exe" list --max "0" --name-width "0" --absolute ^
-    ^| FindStr /R /C:".*Backups.*dir.*"`
+        ^| FindStr /R /C:".*Backups.*dir.*"`
 ) Do (
     SetLocal EnableDelayedExpansion
 
     Start "GDrive" /D "%Utils_Path%" /B /Wait "%Utils_Path%\GDrive.exe" upload --parent "%%I" "D:\%Archive_Name%.zip" ^
-    | FindStr /R /C:"Uploaded .* at .*, total .*"
+        | FindStr /R /C:"Uploaded .* at .*, total .*"
 
     Set Current_Error_Code=!ErrorLevel!
 
@@ -137,7 +137,7 @@ Echo.
 Echo DeleteOld...
 
 Start "GDrive" /D "%Utils_Path%" /B /Wait "%Utils_Path%\GDrive.exe" delete "%Old_ID%" ^
-| FindStr /R /C:"Deleted '.*\.zip'"
+    | FindStr /R /C:"Deleted '.*\.zip'"
 
 Set Current_Error_Code=%ErrorLevel%
 
