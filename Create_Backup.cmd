@@ -21,7 +21,7 @@ Set Utils_Path=D:\Programs
 Set Archive_Name=%Date:~-10%
 Set Archive_Name=%Archive_Name:/=.%
 
-Set Exit_Color=0A
+Set Current_Error_Code=0
 
 
 
@@ -86,6 +86,15 @@ For /F "UseBackQ Tokens=1 Delims= " %%I In (
 )
 
 
+If "%Old_ID%" Equ "" (
+    Set Current_Error_Code=1
+
+    Echo GetOldID failed
+
+    GoTo Exit
+)
+
+
 
 :: UploadNew
 :: ---------------------------------------------------------------------------------------------
@@ -93,25 +102,27 @@ For /F "UseBackQ Tokens=1 Delims= " %%I In (
 Echo.
 Echo UploadNew...
 
+Set Current_Error_Code=1
+
+
 For /F "UseBackQ Tokens=1 Delims= " %%I In (
     `Start "GDrive" /D "%Utils_Path%" /B /Wait "%Utils_Path%\GDrive.exe" list --max "0" --name-width "0" --absolute ^
     ^| FindStr /R /C:".*Backups.*dir.*"`
 ) Do (
+    SetLocal EnableDelayedExpansion
+
     Start "GDrive" /D "%Utils_Path%" /B /Wait "%Utils_Path%\GDrive.exe" upload --parent "%%I" "D:\%Archive_Name%.zip" ^
-    | FindStr /R /C:"Uploaded .* at .*, total .*" ^
-    || Set Upload_Failed=True
+    | FindStr /R /C:"Uploaded .* at .*, total .*"
+
+    Set Current_Error_Code=!ErrorLevel!
+
+    SetLocal DisableDelayedExpansion
 )
 
 
+If "%Current_Error_Code%" Neq "0" (
+    Echo UploadNew failed
 
-:: UploadCheck
-:: ---------------------------------------------------------------------------------------------
-:UploadCheck
-Echo.
-Echo UploadCheck...
-
-If "%Upload_Failed%" Equ "True" (
-    Set Exit_Color=0C
     GoTo Exit
 )
 
@@ -125,6 +136,14 @@ Echo DeleteOld...
 
 Start "GDrive" /D "%Utils_Path%" /B /Wait "%Utils_Path%\GDrive.exe" delete "%Old_ID%"
 
+Set Current_Error_Code=%ErrorLevel%
+
+
+If "%Current_Error_Code%" Neq "0" (
+    Echo DeleteOld failed
+
+    GoTo Exit
+)
 
 
 :: DeleteLocal
@@ -143,8 +162,18 @@ Erase /F /Q /A "D:\%Archive_Name%.zip"
 Echo.
 Echo Exit...
 
-PowerShell -Command "& { [System.Console]::Beep(500, 1000); }"
-Color %Exit_Color%
+If "%Current_Error_Code%" Neq "0" (
+    Color 0C
+
+    PowerShell -Command "& { [System.Console]::Beep(700, 800); }"
+    PowerShell -Command "& { [System.Console]::Beep(500, 800); }"
+) Else (
+    Color 0A
+
+    PowerShell -Command "& { [System.Console]::Beep(500, 800); }"
+    PowerShell -Command "& { [System.Console]::Beep(700, 800); }"
+)
+
 Echo.
 Echo Done. Press any key to exit...
 Pause >Nul
