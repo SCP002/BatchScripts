@@ -136,7 +136,8 @@ If "%Current_Error_Code%" Neq "0" (
 Echo.
 Echo DeleteOld...
 
-Start "GDrive" /D "%Utils_Path%" /B /Wait "%Utils_Path%\GDrive.exe" delete "%Old_ID%"
+Start "GDrive" /D "%Utils_Path%" /B /Wait "%Utils_Path%\GDrive.exe" delete "%Old_ID%" ^
+| FindStr /R /C:"Deleted '.*\.zip'"
 
 Set Current_Error_Code=%ErrorLevel%
 
@@ -166,13 +167,13 @@ Erase /F /Q /A "D:\%Archive_Name%.zip"
 If "%Current_Error_Code%" Neq "0" (
     Color 0C
 
-    PowerShell -Command "& { [System.Console]::Beep(700, 800); }"
-    PowerShell -Command "& { [System.Console]::Beep(500, 800); }"
+    PowerShell -Command "& { [System.Console]::Beep(700, 500); }"
+    PowerShell -Command "& { [System.Console]::Beep(500, 500); }"
 ) Else (
     Color 0A
 
-    PowerShell -Command "& { [System.Console]::Beep(500, 800); }"
-    PowerShell -Command "& { [System.Console]::Beep(700, 800); }"
+    PowerShell -Command "& { [System.Console]::Beep(500, 500); }"
+    PowerShell -Command "& { [System.Console]::Beep(700, 500); }"
 )
 
 Echo.
