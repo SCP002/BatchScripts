@@ -23,8 +23,8 @@ For /F "UseBackQ" %%I In (
 )
 
 If "%Git_Exec%" Equ "" (
-    Echo Git executable not found, aborting. ^
-    & GoTo Exit
+    Echo Git executable not found, aborting.
+    GoTo Exit
 )
 
 Echo Git executable found: "%Git_Exec%"

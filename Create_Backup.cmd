@@ -97,8 +97,8 @@ For /F "UseBackQ Tokens=1 Delims= " %%I In (
 :UploadCheck
 Echo.
 If "%Upload_Failed%" Equ "True" (
-    Set Exit_Color=0C ^
-    & GoTo Exit
+    Set Exit_Color=0C
+    GoTo Exit
 )
 
 
