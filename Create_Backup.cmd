@@ -89,6 +89,7 @@ For /F "UseBackQ Tokens=1 Delims= " %%I In (
 If "%Old_ID%" Equ "" (
     Set Current_Error_Code=1
 
+    Echo.
     Echo GetOldID failed
 
     GoTo Exit
@@ -121,6 +122,7 @@ For /F "UseBackQ Tokens=1 Delims= " %%I In (
 
 
 If "%Current_Error_Code%" Neq "0" (
+    Echo.
     Echo UploadNew failed
 
     GoTo Exit
@@ -140,6 +142,7 @@ Set Current_Error_Code=%ErrorLevel%
 
 
 If "%Current_Error_Code%" Neq "0" (
+    Echo.
     Echo DeleteOld failed
 
     GoTo Exit
