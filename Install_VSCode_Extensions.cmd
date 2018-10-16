@@ -29,10 +29,10 @@ Call "%VSCode_Path%\code.cmd" "--install-extension" "EditorConfig.EditorConfig"
 Call "%VSCode_Path%\code.cmd" "--install-extension" "eg2.tslint"
 Call "%VSCode_Path%\code.cmd" "--install-extension" "eg2.vscode-npm-script"
 Call "%VSCode_Path%\code.cmd" "--install-extension" "Gruntfuggly.todo-tree"
-Call "%VSCode_Path%\code.cmd" "--install-extension" "isudox.vscode-jetbrains-keybindings"
+Call "%VSCode_Path%\code.cmd" "--install-extension" "k--kato.intellij-idea-keybindings"
 Call "%VSCode_Path%\code.cmd" "--install-extension" "michelemelluso.code-beautifier"
 Call "%VSCode_Path%\code.cmd" "--install-extension" "mike-co.import-sorter"
-Call "%VSCode_Path%\code.cmd" "--install-extension" "rexebin.dracula"
+Call "%VSCode_Path%\code.cmd" "--install-extension" "rokoroku.vscode-theme-darcula"
 Call "%VSCode_Path%\code.cmd" "--install-extension" "Tyriar.sort-lines"
 
 
