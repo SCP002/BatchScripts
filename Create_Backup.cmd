@@ -17,6 +17,7 @@ Echo SetVariables...
 
 Set MC_Path=D:\Games\Minecraft
 Set Utils_Path=D:\Programs
+Set Projects_Path=D:\Projects
 
 Set Archive_Name=%Date:~-10%
 Set Archive_Name=%Archive_Name:/=.%
@@ -47,6 +48,19 @@ RD /S /Q "%MC_Path%\crash-reports"
 RD /S /Q "%MC_Path%\logs"
 
 Erase /F /S /Q /A "%MC_Path%\hs_err_pid*.log"
+
+
+For /F "UseBackQ" %%I In (
+    `Dir /A /B /S "%Projects_Path%\.mypy_cache"`
+) Do (
+    RD /S /Q "%%I"
+)
+
+For /F "UseBackQ" %%I In (
+    `Dir /A /B /S "%Projects_Path%\__pycache__"`
+) Do (
+    RD /S /Q "%%I"
+)
 
 
 
