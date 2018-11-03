@@ -35,10 +35,6 @@ Call "%VSCode_Path%\code.cmd" "--install-extension" "Tyriar.sort-lines"
 :: PHP
 Call "%VSCode_Path%\code.cmd" "--install-extension" "felixfbecker.php-intellisense"
 
-:: Python
-Call "%VSCode_Path%\code.cmd" "--install-extension" "ms-python.python"
-Call "%VSCode_Path%\code.cmd" "--install-extension" "VisualStudioExptTeam.vscodeintellicode"
-
 :: TypeScript
 Call "%VSCode_Path%\code.cmd" "--install-extension" "eg2.tslint"
 Call "%VSCode_Path%\code.cmd" "--install-extension" "mike-co.import-sorter"
