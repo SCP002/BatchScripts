@@ -11,6 +11,23 @@ Title %~0
 Echo.
 Echo SetVariables...
 
+Echo Searching for Python executable...
+
+For /F "UseBackQ" %%I In (
+    `Dir /A /B /S "%SystemDrive%\python.exe"`
+) Do (
+    Set Python_Exec=%%I
+)
+
+If "%Python_Exec%" Equ "" (
+    Echo Python executable not found, aborting.
+    GoTo Exit
+)
+
+Echo Python executable found: "%Python_Exec%"
+
+
+Echo.
 Echo Press ^<Enter^> to set default value
 Set /P Share_Path=Path to share: 
 Set /P Port=Port: 
@@ -23,9 +40,6 @@ If "%Share_Path%" Equ "" (
 If "%Port%" Equ "" (
     Set Port=80
 )
-
-
-Set Python_Path=%LocalAppData%\Programs\Python\Python36
 
 
 Echo.
@@ -48,7 +62,7 @@ Pause
 Echo.
 Echo Run...
 
-Start "HTTPServer" /D "%Share_Path%" /B /Wait "%Python_Path%\python.exe" -m "http.server" "%Port%"
+Start "HTTPServer" /D "%Share_Path%" /B /Wait "%Python_Exec%" -m "http.server" "%Port%"
 
 
 
