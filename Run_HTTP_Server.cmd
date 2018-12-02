@@ -14,7 +14,8 @@ Echo SetVariables...
 Echo Searching for Python executable...
 
 For /F "UseBackQ" %%I In (
-    `Dir /A /B /S "%SystemDrive%\python.exe"`
+    `Dir /A /B /S "%SystemDrive%\python.exe" ^
+        ^| FindStr /R /C:".*\\Python3.\\python\.exe"`
 ) Do (
     Set Python_Exec=%%I
 )
