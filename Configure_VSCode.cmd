@@ -11,8 +11,8 @@ Title %~0
 Echo.
 Echo SetVariables...
 
-Set VSCode_Path=%LocalAppData%\Programs\Microsoft VS Code\bin
-Set VSCode_Config_Path=%AppData%\Code\User\settings.json
+Set VSCode_Exec=%LocalAppData%\Programs\Microsoft VS Code\bin\code.cmd
+Set VSCode_Cfg=%AppData%\Code\User\settings.json
 
 
 
@@ -23,28 +23,28 @@ Echo.
 Echo InstallExtensions...
 
 :: Angular
-Call "%VSCode_Path%\code.cmd" "--install-extension" "Angular.ng-template"
+Call "%VSCode_Exec%" "--install-extension" "Angular.ng-template"
 
 :: General
-Call "%VSCode_Path%\code.cmd" "--install-extension" "christian-kohler.path-intellisense"
-Call "%VSCode_Path%\code.cmd" "--install-extension" "EditorConfig.EditorConfig"
-Call "%VSCode_Path%\code.cmd" "--install-extension" "Gruntfuggly.todo-tree"
-Call "%VSCode_Path%\code.cmd" "--install-extension" "k--kato.intellij-idea-keybindings"
-Call "%VSCode_Path%\code.cmd" "--install-extension" "rokoroku.vscode-theme-darcula"
-Call "%VSCode_Path%\code.cmd" "--install-extension" "Tyriar.sort-lines"
+Call "%VSCode_Exec%" "--install-extension" "christian-kohler.path-intellisense"
+Call "%VSCode_Exec%" "--install-extension" "EditorConfig.EditorConfig"
+Call "%VSCode_Exec%" "--install-extension" "Gruntfuggly.todo-tree"
+Call "%VSCode_Exec%" "--install-extension" "k--kato.intellij-idea-keybindings"
+Call "%VSCode_Exec%" "--install-extension" "rokoroku.vscode-theme-darcula"
+Call "%VSCode_Exec%" "--install-extension" "Tyriar.sort-lines"
 
 :: PHP
-Call "%VSCode_Path%\code.cmd" "--install-extension" "felixfbecker.php-intellisense"
+Call "%VSCode_Exec%" "--install-extension" "felixfbecker.php-intellisense"
 
 :: TypeScript
-Call "%VSCode_Path%\code.cmd" "--install-extension" "eg2.tslint"
-Call "%VSCode_Path%\code.cmd" "--install-extension" "mike-co.import-sorter"
+Call "%VSCode_Exec%" "--install-extension" "eg2.tslint"
+Call "%VSCode_Exec%" "--install-extension" "mike-co.import-sorter"
 
 :: Web
-Call "%VSCode_Path%\code.cmd" "--install-extension" "dbaeumer.vscode-eslint"
-Call "%VSCode_Path%\code.cmd" "--install-extension" "ecmel.vscode-html-css"
-Call "%VSCode_Path%\code.cmd" "--install-extension" "eg2.vscode-npm-script"
-Call "%VSCode_Path%\code.cmd" "--install-extension" "michelemelluso.code-beautifier"
+Call "%VSCode_Exec%" "--install-extension" "dbaeumer.vscode-eslint"
+Call "%VSCode_Exec%" "--install-extension" "ecmel.vscode-html-css"
+Call "%VSCode_Exec%" "--install-extension" "eg2.vscode-npm-script"
+Call "%VSCode_Exec%" "--install-extension" "michelemelluso.code-beautifier"
 
 
 
@@ -54,57 +54,57 @@ Call "%VSCode_Path%\code.cmd" "--install-extension" "michelemelluso.code-beautif
 Echo.
 Echo WriteConfig...
 
-Echo {>                                                                                                 %VSCode_Config_Path%
-Echo     "html.format.wrapAttributes": "force-expand-multiline",>>                                      %VSCode_Config_Path%
-Echo     "importSorter.importStringConfiguration.maximumNumberOfImportExpressionsPerLine.count": 120,>> %VSCode_Config_Path%
-Echo     "importSorter.sortConfiguration.customOrderingRules.rules": [>>                                %VSCode_Config_Path%
-Echo         {>>                                                                                        %VSCode_Config_Path%
-Echo             "regex": "^@app",>>                                                                    %VSCode_Config_Path%
-Echo             "orderLevel": 40,>>                                                                    %VSCode_Config_Path%
-Echo             "numberOfEmptyLinesAfterGroup": ^1>>                                                   %VSCode_Config_Path%
-Echo         },>>                                                                                       %VSCode_Config_Path%
-Echo         {>>                                                                                        %VSCode_Config_Path%
-Echo             "regex": "^src",>>                                                                     %VSCode_Config_Path%
-Echo             "orderLevel": 50,>>                                                                    %VSCode_Config_Path%
-Echo             "numberOfEmptyLinesAfterGroup": ^1>>                                                   %VSCode_Config_Path%
-Echo         },>>                                                                                       %VSCode_Config_Path%
-Echo         {>>                                                                                        %VSCode_Config_Path%
-Echo             "type": "importMember",>>                                                              %VSCode_Config_Path%
-Echo             "regex": "^$",>>                                                                       %VSCode_Config_Path%
-Echo             "orderLevel": 5,>>                                                                     %VSCode_Config_Path%
-Echo             "disableSort": true>>                                                                  %VSCode_Config_Path%
-Echo         },>>                                                                                       %VSCode_Config_Path%
-Echo         {>>                                                                                        %VSCode_Config_Path%
-Echo             "regex": "^[^.@]",>>                                                                   %VSCode_Config_Path%
-Echo             "orderLevel": 10>>                                                                     %VSCode_Config_Path%
-Echo         },>>                                                                                       %VSCode_Config_Path%
-Echo         {>>                                                                                        %VSCode_Config_Path%
-Echo             "regex": "^[@]",>>                                                                     %VSCode_Config_Path%
-Echo             "orderLevel": 15>>                                                                     %VSCode_Config_Path%
-Echo         },>>                                                                                       %VSCode_Config_Path%
-Echo         {>>                                                                                        %VSCode_Config_Path%
-Echo             "regex": "^[.]",>>                                                                     %VSCode_Config_Path%
-Echo             "orderLevel": 30>>                                                                     %VSCode_Config_Path%
-Echo         },>>                                                                                       %VSCode_Config_Path%
-Echo     ],>>                                                                                           %VSCode_Config_Path%
-Echo     "javascript.preferences.importModuleSpecifier": "non-relative",>>                              %VSCode_Config_Path%
-Echo     "javascript.preferences.quoteStyle": "single",>>                                               %VSCode_Config_Path%
-Echo     "javascript.updateImportsOnFileMove.enabled": "always",>>                                      %VSCode_Config_Path%
-Echo     "terminal.integrated.shell.windows": "C:\\WINDOWS\\System32\\cmd.exe",>>                       %VSCode_Config_Path%
-Echo     "todo-tree.customHighlight": {>>                                                               %VSCode_Config_Path%
-Echo         "TODO": {},>>                                                                              %VSCode_Config_Path%
-Echo         "FIXME": {}>>                                                                              %VSCode_Config_Path%
-Echo     },>>                                                                                           %VSCode_Config_Path%
-Echo     "todo-tree.defaultHighlight": {>>                                                              %VSCode_Config_Path%
-Echo         "foreground": "green",>>                                                                   %VSCode_Config_Path%
-Echo         "type": "text">>                                                                           %VSCode_Config_Path%
-Echo     },>>                                                                                           %VSCode_Config_Path%
-Echo     "typescript.preferences.importModuleSpecifier": "non-relative",>>                              %VSCode_Config_Path%
-Echo     "typescript.preferences.quoteStyle": "single",>>                                               %VSCode_Config_Path%
-Echo     "typescript.updateImportsOnFileMove.enabled": "always",>>                                      %VSCode_Config_Path%
-Echo     "workbench.colorTheme": "Darcula",>>                                                           %VSCode_Config_Path%
-Echo     "workbench.startupEditor": "none",>>                                                           %VSCode_Config_Path%
-Echo }>>                                                                                                %VSCode_Config_Path%
+Echo {>                                                                                                 %VSCode_Cfg%
+Echo     "html.format.wrapAttributes": "force-expand-multiline",>>                                      %VSCode_Cfg%
+Echo     "importSorter.importStringConfiguration.maximumNumberOfImportExpressionsPerLine.count": 120,>> %VSCode_Cfg%
+Echo     "importSorter.sortConfiguration.customOrderingRules.rules": [>>                                %VSCode_Cfg%
+Echo         {>>                                                                                        %VSCode_Cfg%
+Echo             "regex": "^@app",>>                                                                    %VSCode_Cfg%
+Echo             "orderLevel": 40,>>                                                                    %VSCode_Cfg%
+Echo             "numberOfEmptyLinesAfterGroup": 1,>>                                                   %VSCode_Cfg%
+Echo         },>>                                                                                       %VSCode_Cfg%
+Echo         {>>                                                                                        %VSCode_Cfg%
+Echo             "regex": "^src",>>                                                                     %VSCode_Cfg%
+Echo             "orderLevel": 50,>>                                                                    %VSCode_Cfg%
+Echo             "numberOfEmptyLinesAfterGroup": 1,>>                                                   %VSCode_Cfg%
+Echo         },>>                                                                                       %VSCode_Cfg%
+Echo         {>>                                                                                        %VSCode_Cfg%
+Echo             "type": "importMember",>>                                                              %VSCode_Cfg%
+Echo             "regex": "^$",>>                                                                       %VSCode_Cfg%
+Echo             "orderLevel": 5,>>                                                                     %VSCode_Cfg%
+Echo             "disableSort": true,>>                                                                 %VSCode_Cfg%
+Echo         },>>                                                                                       %VSCode_Cfg%
+Echo         {>>                                                                                        %VSCode_Cfg%
+Echo             "regex": "^[^.@]",>>                                                                   %VSCode_Cfg%
+Echo             "orderLevel": 10,>>                                                                    %VSCode_Cfg%
+Echo         },>>                                                                                       %VSCode_Cfg%
+Echo         {>>                                                                                        %VSCode_Cfg%
+Echo             "regex": "^[@]",>>                                                                     %VSCode_Cfg%
+Echo             "orderLevel": 15,>>                                                                    %VSCode_Cfg%
+Echo         },>>                                                                                       %VSCode_Cfg%
+Echo         {>>                                                                                        %VSCode_Cfg%
+Echo             "regex": "^[.]",>>                                                                     %VSCode_Cfg%
+Echo             "orderLevel": 30,>>                                                                    %VSCode_Cfg%
+Echo         },>>                                                                                       %VSCode_Cfg%
+Echo     ],>>                                                                                           %VSCode_Cfg%
+Echo     "javascript.preferences.importModuleSpecifier": "non-relative",>>                              %VSCode_Cfg%
+Echo     "javascript.preferences.quoteStyle": "single",>>                                               %VSCode_Cfg%
+Echo     "javascript.updateImportsOnFileMove.enabled": "always",>>                                      %VSCode_Cfg%
+Echo     "terminal.integrated.shell.windows": "C:\\WINDOWS\\System32\\cmd.exe",>>                       %VSCode_Cfg%
+Echo     "todo-tree.customHighlight": {>>                                                               %VSCode_Cfg%
+Echo         "TODO": {},>>                                                                              %VSCode_Cfg%
+Echo         "FIXME": {},>>                                                                             %VSCode_Cfg%
+Echo     },>>                                                                                           %VSCode_Cfg%
+Echo     "todo-tree.defaultHighlight": {>>                                                              %VSCode_Cfg%
+Echo         "foreground": "green",>>                                                                   %VSCode_Cfg%
+Echo         "type": "text",>>                                                                          %VSCode_Cfg%
+Echo     },>>                                                                                           %VSCode_Cfg%
+Echo     "typescript.preferences.importModuleSpecifier": "non-relative",>>                              %VSCode_Cfg%
+Echo     "typescript.preferences.quoteStyle": "single",>>                                               %VSCode_Cfg%
+Echo     "typescript.updateImportsOnFileMove.enabled": "always",>>                                      %VSCode_Cfg%
+Echo     "workbench.colorTheme": "Darcula",>>                                                           %VSCode_Cfg%
+Echo     "workbench.startupEditor": "none",>>                                                           %VSCode_Cfg%
+Echo }>>                                                                                                %VSCode_Cfg%
 
 
 
