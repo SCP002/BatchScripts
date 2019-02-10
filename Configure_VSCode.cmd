@@ -37,8 +37,8 @@ Call "%VSCode_Exec%" "--install-extension" "Tyriar.sort-lines"
 Call "%VSCode_Exec%" "--install-extension" "felixfbecker.php-intellisense"
 
 :: TypeScript
-Call "%VSCode_Exec%" "--install-extension" "eg2.tslint"
 Call "%VSCode_Exec%" "--install-extension" "mike-co.import-sorter"
+Call "%VSCode_Exec%" "--install-extension" "ms-vscode.vscode-typescript-tslint-plugin"
 
 :: Web
 Call "%VSCode_Exec%" "--install-extension" "dbaeumer.vscode-eslint"
