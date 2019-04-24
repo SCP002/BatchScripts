@@ -48,26 +48,26 @@ Erase /F /S /Q /A "%MC_Path%\hs_err_pid*.log"
 
 
 For /F "UseBackQ" %%I In (
-    `Dir /A /B /S "%MC_Path%\crash-reports"`
+    `Dir /A:D /B /S "%MC_Path%\crash-reports"`
 ) Do (
     RD /S /Q "%%I"
 )
 
 For /F "UseBackQ" %%I In (
-    `Dir /A /B /S "%MC_Path%\logs"`
+    `Dir /A:D /B /S "%MC_Path%\logs"`
 ) Do (
     RD /S /Q "%%I"
 )
 
 
 For /F "UseBackQ" %%I In (
-    `Dir /A /B /S "%Projects_Path%\.mypy_cache"`
+    `Dir /A:D /B /S "%Projects_Path%\.mypy_cache"`
 ) Do (
     RD /S /Q "%%I"
 )
 
 For /F "UseBackQ" %%I In (
-    `Dir /A /B /S "%Projects_Path%\__pycache__"`
+    `Dir /A:D /B /S "%Projects_Path%\__pycache__"`
 ) Do (
     RD /S /Q "%%I"
 )
