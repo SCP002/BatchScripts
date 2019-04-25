@@ -38,6 +38,16 @@ If Exist "D:\%Archive_Name%.zip" (
 
 
 
+:: PromptArchivePassword
+:: ---------------------------------------------------------------------------------------------
+:PromptArchivePassword
+Echo.
+Echo PromptArchivePassword...
+
+Set /P Archive_Pwd=Archive password: 
+
+
+
 :: Cleanup
 :: ---------------------------------------------------------------------------------------------
 :Cleanup
@@ -79,9 +89,6 @@ For /F "UseBackQ" %%I In (
 :Archivate
 Echo.
 Echo Archivate...
-
-Set /P Archive_Pwd=Archive password: 
-
 
 Start "7-Zip" /D "%ProgramFiles%\7-Zip" /B /Wait "%ProgramFiles%\7-Zip\7z.exe" a -mx=5 -mm=Deflate -p%Archive_Pwd% -r -sccUTF-8 -spf -ssw -tzip -y -- ^
     "D:\%Archive_Name%.zip" ^
