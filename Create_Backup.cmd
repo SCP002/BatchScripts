@@ -22,6 +22,9 @@ Set Projects_Path=D:\Projects
 Set Archive_Name=%Date:~-10%
 Set Archive_Name=%Archive_Name:/=.%
 
+Set Backups_Max_Amount=3
+Set Backups_Counter=0
+
 Set Current_Error_Code=0
 
 
@@ -33,7 +36,7 @@ Echo.
 Echo ArchiveCheck...
 
 If Exist "D:\%Archive_Name%.zip" (
-    GoTo GetOldID
+    GoTo UploadNew
 )
 
 
@@ -103,31 +106,6 @@ Start "7-Zip" /D "%ProgramFiles%\7-Zip" /B /Wait "%ProgramFiles%\7-Zip\7z.exe" a
 
 
 
-:: GetOldID
-:: ---------------------------------------------------------------------------------------------
-:GetOldID
-Echo.
-Echo GetOldID...
-
-For /F "UseBackQ Tokens=1 Delims= " %%I In (
-    `Start "GDrive" /D "%Utils_Path%" /B /Wait "%Utils_Path%\GDrive.exe" list --max "0" --name-width "0" --absolute ^
-        ^| FindStr /R /C:" *Backups\\.*\.zip *bin *"`
-) Do (
-    Set Old_ID=%%I
-)
-
-
-If "%Old_ID%" Equ "" (
-    Set Current_Error_Code=1
-
-    Echo.
-    Echo GetOldID failed
-
-    GoTo Exit
-)
-
-
-
 :: UploadNew
 :: ---------------------------------------------------------------------------------------------
 :UploadNew
@@ -138,7 +116,7 @@ Set Current_Error_Code=1
 
 
 For /F "UseBackQ Tokens=1 Delims= " %%I In (
-    `Start "GDrive" /D "%Utils_Path%" /B /Wait "%Utils_Path%\GDrive.exe" list --max "0" --name-width "0" --absolute ^
+    `Start "GDrive" /D "%Utils_Path%" /B /Wait "%Utils_Path%\GDrive.exe" list --max "0" --order "createdTime desc" --name-width "0" --absolute ^
         ^| FindStr /R /C:" *Backups *dir *"`
 ) Do (
     SetLocal EnableDelayedExpansion
@@ -157,6 +135,45 @@ If "%Current_Error_Code%" Neq "0" (
     Echo UploadNew failed
 
     GoTo Exit
+)
+
+
+
+:: GetOldID
+:: ---------------------------------------------------------------------------------------------
+:GetOldID
+Echo.
+Echo GetOldID...
+
+For /F "UseBackQ Tokens=1 Delims= " %%I In (
+    `Start "GDrive" /D "%Utils_Path%" /B /Wait "%Utils_Path%\GDrive.exe" list --max "0" --order "createdTime desc" --name-width "0" --absolute ^
+        ^| FindStr /R /C:" *Backups\\.*\.zip *bin *"`
+) Do (
+    Set /A Backups_Counter=%Backups_Counter%+1
+
+    Set Old_ID=%%I
+)
+
+
+If "%Old_ID%" Equ "" (
+    Set Current_Error_Code=1
+
+    Echo.
+    Echo GetOldID failed
+
+    GoTo Exit
+)
+
+
+
+:: CheckBackupsAmount
+:: ---------------------------------------------------------------------------------------------
+:CheckBackupsAmount
+Echo.
+Echo CheckBackupsAmount...
+
+If "%Backups_Counter%" LEQ "%Backups_Max_Amount%" (
+    GoTo DeleteLocal
 )
 
 
