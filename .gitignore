@@ -3,6 +3,8 @@
 
 # Not these files
 !/*.cmd
+!/*.ps1
+!/*.reg
 !/.gitattributes
 !/.gitignore
 !/README.md
