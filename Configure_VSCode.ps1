@@ -65,8 +65,8 @@ $VSCodeCfg = @'
 
 # Functions
 # ---------------------------------------------------------------------------------------------
-Function InstallExtensions {
-    Param()
+function InstallExtensions {
+    param()
 
     Write-Output -InputObject ('Installing extensions...')
 
@@ -102,14 +102,14 @@ Function InstallExtensions {
         'visualstudioexptteam.vscodeintellicode'
     )
 
-    ForEach ($Extension in $Extensions) {
+    foreach ($Extension in $Extensions) {
         Start-Process -NoNewWindow -Wait -FilePath $VSCodeExecFile -ArgumentList @('--install-extension', $Extension)
     }
 }
 
 
-Function WriteConfig {
-    Param()
+function WriteConfig {
+    param()
 
     Write-Output -InputObject ("`r`n" + 'Writing config...')
 
