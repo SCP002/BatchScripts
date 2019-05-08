@@ -1,6 +1,8 @@
-﻿# Encoding: UTF-8-BOM
+﻿# Encoding: UTF-8-BOM. Required to correctly recognize UTF-8 in PowerShell.
 
 Set-StrictMode -Version Latest
+
+$ErrorActionPreference = 'Stop'
 
 
 # Global variables
@@ -66,7 +68,7 @@ $VSCodeCfg = @'
 # Functions
 # ---------------------------------------------------------------------------------------------
 function InstallExtensions {
-    param()
+    param ()
 
     Write-Output -InputObject ('Installing extensions...')
 
@@ -108,22 +110,76 @@ function InstallExtensions {
     }
 }
 
-
 function WriteConfig {
-    param()
+    param ()
 
     Write-Output -InputObject ("`r`n" + 'Writing config...')
 
     $VSCodeCfgFile = $Env:AppData + '\Code\User\settings.json'
 
+    # Using WriteAllLines to enforce UTF-8 encoding (without BOM)
     [System.IO.File]::WriteAllLines($VSCodeCfgFile, $VSCodeCfg)
+}
+
+function ExitWithCode {
+    param (
+        # Exit code.
+        [Parameter(Mandatory = $true)]
+        [int]
+        $Code,
+
+        # Beep before exit or not.
+        [Parameter()]
+        [bool]
+        $Beep = $false,
+
+        # Ask to press <Enter> before exit or not.
+        [Parameter()]
+        [bool]
+        $Prompt = $false,
+
+        # Error record to display.
+        [Parameter()]
+        [System.Management.Automation.ErrorRecord]
+        $Error
+    )
+
+    if ($Code -eq 0) {
+        Write-Host -ForegroundColor Green -Object ("`r`n" + 'Job done successfully')
+
+        if ($Beep) {
+            [System.Console]::Beep(500, 500)
+            [System.Console]::Beep(700, 500)
+        }
+    } else {
+        Write-Host -ForegroundColor Red -Object ("`r`n" + 'Error occured during the job')
+
+        if ($Error) {
+            Write-Host -ForegroundColor Red -Object ($Error | Out-String)
+        }
+
+        if ($Beep) {
+            [System.Console]::Beep(700, 500)
+            [System.Console]::Beep(500, 500)
+        }
+    }
+
+    if ($Prompt) {
+        Read-Host -Prompt ('Press <Enter> to exit...')
+    }
+
+    exit $Code
 }
 
 
 # Start point
 # ---------------------------------------------------------------------------------------------
-InstallExtensions
+try {
+    InstallExtensions
 
-WriteConfig
+    WriteConfig
 
-Read-Host -Prompt ("`r`n" + 'Press <Enter> to exit...')
+    ExitWithCode -Code 0 -Beep $true -Prompt $true
+} catch {
+    ExitWithCode -Code 1 -Beep $true -Prompt $true -Error $_
+}
