@@ -61,6 +61,12 @@ Erase /F /S /Q /A "%MC_Path%\hs_err_pid*.log"
 
 
 For /F "UseBackQ" %%I In (
+    `Dir /A:D /B /S "%MC_Path%\backups"`
+) Do (
+    RD /S /Q "%%I"
+)
+
+For /F "UseBackQ" %%I In (
     `Dir /A:D /B /S "%MC_Path%\crash-reports"`
 ) Do (
     RD /S /Q "%%I"
