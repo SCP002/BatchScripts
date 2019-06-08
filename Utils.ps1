@@ -1,9 +1,21 @@
-﻿# Encoding: UTF-8-BOM. Required to correctly recognize UTF-8 in PowerShell.
-# Description: Collection of utility functions.
+﻿#Requires -Version 5.1
+
+<#
+.SYNOPSIS
+
+Collection of utility functions.
+
+.NOTES
+
+Encoding: UTF-8-BOM. Required to correctly recognize UTF-8 in PowerShell.
+#>
+
+
+# Preferences
+# ---------------------------------------------------------------------------------------------
+$ErrorActionPreference = 'Stop'
 
 Set-StrictMode -Version Latest
-
-$ErrorActionPreference = 'Stop'
 
 
 # Functions
@@ -28,6 +40,7 @@ function WriteToFile {
     $File = Split-Path -Leaf -Path $FilePath
     $FilePath = New-Item -Force -ItemType 'File' -Path $Path -Name $File
 
+    # Write file
     # Using WriteAllLines to enforce UTF-8 encoding (without BOM)
     [System.IO.File]::WriteAllLines($FilePath, $Contents)
 }
