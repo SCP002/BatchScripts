@@ -1,8 +1,21 @@
-﻿# Encoding: UTF-8-BOM. Required to correctly recognize UTF-8 in PowerShell.
+﻿#Requires -Version 5.1
+
+<#
+.SYNOPSIS
+
+Installs Visual Studio Code extensions and writes config.
+
+.NOTES
+
+Encoding: UTF-8-BOM. Required to correctly recognize UTF-8 in PowerShell.
+#>
+
+
+# Preferences
+# ---------------------------------------------------------------------------------------------
+$ErrorActionPreference = 'Stop'
 
 Set-StrictMode -Version Latest
-
-$ErrorActionPreference = 'Stop'
 
 
 # Global variables
