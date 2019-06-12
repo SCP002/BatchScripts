@@ -27,6 +27,7 @@ Set-StrictMode -Version Latest
 # ---------------------------------------------------------------------------------------------
 $VSCodeCfg = @'
 {
+    "editor.suggestSelection": "first",
     "html.format.wrapAttributes": "force-expand-multiline",
     "importSorter.importStringConfiguration.maximumNumberOfImportExpressionsPerLine.count": 120,
     "importSorter.sortConfiguration.customOrderingRules.rules": [
@@ -62,6 +63,7 @@ $VSCodeCfg = @'
     "javascript.preferences.importModuleSpecifier": "non-relative",
     "javascript.preferences.quoteStyle": "single",
     "javascript.updateImportsOnFileMove.enabled": "always",
+    "php.validate.executablePath": "C:\\Users\\User\\AppData\\Local\\Programs\\php-5.4.0\\php.exe",
     "powershell.codeFormatting.newLineAfterCloseBrace": false,
     "powershell.codeFormatting.pipelineIndentationStyle": "IncreaseIndentationAfterEveryPipeline",
     "powershell.codeFormatting.useCorrectCasing": true,
@@ -77,6 +79,7 @@ $VSCodeCfg = @'
     "typescript.preferences.importModuleSpecifier": "non-relative",
     "typescript.preferences.quoteStyle": "single",
     "typescript.updateImportsOnFileMove.enabled": "always",
+    "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
     "workbench.colorTheme": "Darcula",
     "workbench.startupEditor": "none"
 }
