@@ -81,6 +81,8 @@ $VSCodeCfg = @'
 # Functions
 # ---------------------------------------------------------------------------------------------
 function InstallExtensions {
+    [CmdletBinding()]
+    [OutputType([void])]
     param ()
 
     Write-Output -InputObject ('Installing extensions...')
@@ -124,6 +126,8 @@ function InstallExtensions {
 }
 
 function WriteConfig {
+    [CmdletBinding()]
+    [OutputType([void])]
     param ()
 
     Write-Output -InputObject ("`r`n" + 'Writing config...')
@@ -135,6 +139,8 @@ function WriteConfig {
 }
 
 function ExitWithCode {
+    [CmdletBinding()]
+    [OutputType([void])]
     param (
         # Exit code.
         [Parameter(Mandatory = $true)]
