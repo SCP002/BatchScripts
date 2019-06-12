@@ -108,7 +108,7 @@ function InstallExtensions {
         'Tyriar.sort-lines',
 
         # PHP
-        'felixfbecker.php-intellisense',
+        'bmewburn.vscode-intelephense-client',
 
         # PowerShell
         'ms-vscode.powershell',
