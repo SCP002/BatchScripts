@@ -37,8 +37,8 @@ function WriteToFile {
 
     # Create file
     $Path = Split-Path -Path $FilePath
-    $File = Split-Path -Leaf -Path $FilePath
-    $FilePath = New-Item -Force -ItemType 'File' -Path $Path -Name $File
+    $File = Split-Path -Path $FilePath -Leaf
+    $FilePath = New-Item -Path $Path -Name $File -ItemType 'File' -Force
 
     # Write file
     # Using WriteAllLines to enforce UTF-8 encoding (without BOM)
@@ -141,18 +141,18 @@ function ExitWithCode {
     )
 
     if ($Code -eq 0) {
-        Write-Host -ForegroundColor Green -Object ("`r`n" + 'Job done successfully')
+        Write-Host -Object ("`r`n" + 'Job done successfully') -ForegroundColor Green
 
         if ($Beep) {
             [System.Console]::Beep(500, 500)
             [System.Console]::Beep(700, 500)
         }
     } else {
-        Write-Host -ForegroundColor Red -Object ("`r`n" + 'Error occured during the job')
+        Write-Host -Object ("`r`n" + 'Error occured during the job') -ForegroundColor Red
 
         if ($Error) {
             # Pipe to Out-String required for Write-Host command to print objects correctly
-            Write-Host -ForegroundColor Red -Object ($Error | Out-String)
+            Write-Host -Object ($Error | Out-String) -ForegroundColor Red
         }
 
         if ($Beep) {
