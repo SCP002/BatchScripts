@@ -119,7 +119,7 @@ function InstallExtensions {
     )
 
     foreach ($Extension in $Extensions) {
-        Start-Process -NoNewWindow -Wait -FilePath $VSCodeExecFile -ArgumentList @('--install-extension', $Extension)
+        Start-Process -FilePath $VSCodeExecFile -ArgumentList @('--install-extension', $Extension) -NoNewWindow -Wait
     }
 }
 
@@ -158,17 +158,17 @@ function ExitWithCode {
     )
 
     if ($Code -eq 0) {
-        Write-Host -ForegroundColor Green -Object ("`r`n" + 'Job done successfully')
+        Write-Host -Object ("`r`n" + 'Job done successfully') -ForegroundColor Green
 
         if ($Beep) {
             [System.Console]::Beep(500, 500)
             [System.Console]::Beep(700, 500)
         }
     } else {
-        Write-Host -ForegroundColor Red -Object ("`r`n" + 'Error occured during the job')
+        Write-Host -Object ("`r`n" + 'Error occured during the job') -ForegroundColor Red
 
         if ($Error) {
-            Write-Host -ForegroundColor Red -Object ($Error | Out-String)
+            Write-Host -Object ($Error | Out-String) -ForegroundColor Red
         }
 
         if ($Beep) {
