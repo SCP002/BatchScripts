@@ -18,6 +18,11 @@ $ErrorActionPreference = 'Stop'
 Set-StrictMode -Version Latest
 
 
+# Imports
+# ---------------------------------------------------------------------------------------------
+. ($PSScriptRoot + '\Utils.ps1')
+
+
 # Global variables
 # ---------------------------------------------------------------------------------------------
 $VSCodeCfg = @'
@@ -121,7 +126,7 @@ function InstallExtensions {
     )
 
     foreach ($Extension in $Extensions) {
-        Start-Process -FilePath $VSCodeExecFile -ArgumentList @('--install-extension', $Extension) -NoNewWindow -Wait
+        StartProcess -FilePath $VSCodeExecFile -ArgumentList @('--install-extension', $Extension) -Wait -DisplayOutput
     }
 }
 
@@ -134,60 +139,7 @@ function WriteConfig {
 
     $VSCodeCfgFile = $Env:AppData + '\Code\User\settings.json'
 
-    # Using WriteAllLines to enforce UTF-8 encoding (without BOM)
-    [System.IO.File]::WriteAllLines($VSCodeCfgFile, $VSCodeCfg)
-}
-
-function ExitWithCode {
-    [CmdletBinding()]
-    [OutputType([void])]
-    param (
-        # Exit code.
-        [Parameter(Mandatory = $true)]
-        [int]
-        $Code,
-
-        # Beep before exit or not.
-        [Parameter()]
-        [bool]
-        $Beep = $false,
-
-        # Ask to press <Enter> before exit or not.
-        [Parameter()]
-        [bool]
-        $Prompt = $false,
-
-        # Error record to display.
-        [Parameter()]
-        [System.Management.Automation.ErrorRecord]
-        $Error
-    )
-
-    if ($Code -eq 0) {
-        Write-Host -Object ("`r`n" + 'Job done successfully') -ForegroundColor Green
-
-        if ($Beep) {
-            [System.Console]::Beep(500, 500)
-            [System.Console]::Beep(700, 500)
-        }
-    } else {
-        Write-Host -Object ("`r`n" + 'Error occured during the job') -ForegroundColor Red
-
-        if ($Error) {
-            Write-Host -Object ($Error | Out-String) -ForegroundColor Red
-        }
-
-        if ($Beep) {
-            [System.Console]::Beep(700, 500)
-            [System.Console]::Beep(500, 500)
-        }
-    }
-
-    if ($Prompt) {
-        Read-Host -Prompt ('Press <Enter> to exit...')
-    }
-
-    exit $Code
+    WriteToFile -FilePath $VSCodeCfgFile -Contents $VSCodeCfg
 }
 
 
@@ -198,7 +150,7 @@ try {
 
     WriteConfig
 
-    ExitWithCode -Code 0 -Beep $true -Prompt $true
+    ExitWithCode -Code 0 -Beep -Prompt
 } catch {
-    ExitWithCode -Code 1 -Beep $true -Prompt $true -Error $_
+    ExitWithCode -Code 1 -Beep -Prompt -Error $_
 }
