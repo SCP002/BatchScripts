@@ -93,7 +93,7 @@ function StartProcess {
     # Start process
     if ($Wait) {  # Output can be captured only if user will to wait for executable to finish
         if ($DisplayOutput) {
-            & $FilePath $ArgumentList *>&1 | Tee-Object -Variable Out | Out-Default
+            & $FilePath $ArgumentList *>&1 | Tee-Object -Variable Out
         } else {
             & $FilePath $ArgumentList *>&1 | Tee-Object -Variable Out | Out-Null
         }
