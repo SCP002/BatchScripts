@@ -129,7 +129,8 @@ function InstallExtensions {
     )
 
     foreach ($Extension in $Extensions) {
-        StartProcess -FilePath $VSCodeExecFile -ArgumentList @('--install-extension', $Extension) -Wait -DisplayOutput
+        StartProcess -FilePath $VSCodeExecFile -ArgumentList @('--install-extension', $Extension) -Wait -DisplayOutput |
+            Select-String -Pattern 'Installing extensions...' -NotMatch  # Refine output
     }
 }
 
