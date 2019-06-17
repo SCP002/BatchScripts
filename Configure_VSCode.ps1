@@ -25,6 +25,17 @@ Set-StrictMode -Version Latest
 
 # Global variables
 # ---------------------------------------------------------------------------------------------
+Write-Output -InputObject ('Searching for PHP executable...')
+
+$PHPExec = Get-Childitem –Path ($Env:SystemDrive + '\*') -Include 'php.exe' -Recurse -Force -ErrorAction SilentlyContinue |
+    Select-Object -ExpandProperty 'FullName' -First 1
+
+$PHPExec = $PHPExec.Replace('\', '\\')
+
+# Assignment moved to global namespace to keep here-string indentation.
+# Not using string expansion ("$Var") to avoid possible unwanted references.
+# Not using string formatting (-f) because it can not be applied to here-strings.
+# Not using ConvertTo-Json commandlet because in PS v5.1 it produces wrong indentation before lists and dicts.
 $VSCodeCfg = @'
 {
     "editor.suggestSelection": "first",
@@ -63,11 +74,11 @@ $VSCodeCfg = @'
     "javascript.preferences.importModuleSpecifier": "non-relative",
     "javascript.preferences.quoteStyle": "single",
     "javascript.updateImportsOnFileMove.enabled": "always",
-    "php.validate.executablePath": "C:\\Users\\User\\AppData\\Local\\Programs\\php-5.4.0\\php.exe",
+    "php.validate.executablePath": "{PHP_EXEC}",
     "powershell.codeFormatting.newLineAfterCloseBrace": false,
     "powershell.codeFormatting.pipelineIndentationStyle": "IncreaseIndentationAfterEveryPipeline",
     "powershell.codeFormatting.useCorrectCasing": true,
-    "terminal.integrated.shell.windows": "C:\\WINDOWS\\System32\\cmd.exe",
+    "terminal.integrated.shell.windows": "{SYS_DRIVE}\\WINDOWS\\System32\\cmd.exe",
     "todo-tree.customHighlight": {
         "TODO": {},
         "FIXME": {}
@@ -84,6 +95,9 @@ $VSCodeCfg = @'
     "workbench.startupEditor": "none"
 }
 '@
+
+$VSCodeCfg = $VSCodeCfg.Replace('{PHP_EXEC}', $PHPExec)
+$VSCodeCfg = $VSCodeCfg.Replace('{SYS_DRIVE}', $Env:SystemDrive)
 
 
 # Functions
