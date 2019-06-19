@@ -45,6 +45,43 @@ function WriteToFile {
     [System.IO.File]::WriteAllLines($FilePath, $Contents)
 }
 
+function ConvertToJson {
+    [CmdletBinding()]
+    [OutputType([string])]
+    param (
+        # Input object
+        [Parameter(Mandatory = $true)]
+        [PSCustomObject]
+        $InputObject,
+
+        # Compress
+        [Parameter()]
+        [switch]
+        $Compress,
+
+        # Depth
+        [Parameter()]
+        [int]
+        $Depth = 4
+    )
+
+    # Cast input type to PSCustomObject to have output keys ordered alphabetically
+    $InputObject = [PSCustomObject]$InputObject
+
+    # Convert input object to minified JSON string
+    $OutputObject = ConvertTo-Json -InputObject $InputObject -Depth $Depth -Compress
+
+    # Convert minified JSON string to readable format.
+    # Not using native ConvertTo-Json commandlet without -Compress switch due to
+    # in PowerShell v5.1 it adds unnecessary indents for lists and dictonaries.
+    if (-not $Compress) {
+        $OutputObject = [Newtonsoft.Json.Linq.JToken]::Parse($OutputObject).ToString()
+    }
+
+    # Return output object
+    return $OutputObject
+}
+
 function StartProcess {
     [CmdletBinding()]
     [OutputType([PSCustomObject])]
