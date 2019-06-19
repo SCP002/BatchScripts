@@ -20,6 +20,38 @@ Set-StrictMode -Version Latest
 
 # Functions
 # ---------------------------------------------------------------------------------------------
+function FindFile {
+    [CmdletBinding()]
+    [OutputType([string])]
+    param (
+        # Root
+        [Parameter(Mandatory = $true)]
+        [string]
+        $Root,
+
+        # File name
+        [Parameter(Mandatory = $true)]
+        [string]
+        $FileName,
+
+        # Path regex
+        [Parameter()]
+        [string]
+        $PathRegex = '.*'
+    )
+
+    # If path is a drive root, add slash to resolve path properly
+    if ($Root.EndsWith(':')) {
+        $Root += '\'
+    }
+
+    $Result = Get-Childitem –Path $Root -Filter $FileName -Recurse -Force -ErrorAction SilentlyContinue |
+        Where-Object -Property 'DirectoryName' -Match $PathRegex -ErrorAction SilentlyContinue |
+            Select-Object -ExpandProperty 'FullName' -First 1
+
+    return $Result
+}
+
 function WriteToFile {
     [CmdletBinding()]
     [OutputType([void])]
