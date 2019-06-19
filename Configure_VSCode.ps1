@@ -23,83 +23,6 @@ Set-StrictMode -Version Latest
 . ($PSScriptRoot + '\Utils.ps1')
 
 
-# Global variables
-# ---------------------------------------------------------------------------------------------
-Write-Output -InputObject ('Searching for PHP executable...')
-
-$PHPExec = Get-Childitem –Path ($Env:SystemDrive + '\*') -Include 'php.exe' -Recurse -Force -ErrorAction SilentlyContinue |
-    Select-Object -ExpandProperty 'FullName' -First 1
-
-$PHPExec = $PHPExec.Replace('\', '\\')
-
-# Assignment moved to global namespace to keep here-string indentation.
-# Not using string expansion ("$Var") to avoid possible unwanted references.
-# Not using string formatting (-f) because it can not be applied to here-strings.
-# Not using ConvertTo-Json commandlet because in PS v5.1 it produces wrong indentation before lists and dicts.
-$VSCodeCfg = @'
-{
-    "editor.suggestSelection": "first",
-    "html.format.wrapAttributes": "force-expand-multiline",
-    "importSorter.importStringConfiguration.maximumNumberOfImportExpressionsPerLine.count": 120,
-    "importSorter.sortConfiguration.customOrderingRules.rules": [
-        {
-            "regex": "^@app",
-            "orderLevel": 40,
-            "numberOfEmptyLinesAfterGroup": 1
-        },
-        {
-            "regex": "^src",
-            "orderLevel": 50,
-            "numberOfEmptyLinesAfterGroup": 1
-        },
-        {
-            "type": "importMember",
-            "regex": "^$",
-            "orderLevel": 5,
-            "disableSort": true
-        },
-        {
-            "regex": "^[^.@]",
-            "orderLevel": 10
-        },
-        {
-            "regex": "^[@]",
-            "orderLevel": 15
-        },
-        {
-            "regex": "^[.]",
-            "orderLevel": 30
-        }
-    ],
-    "javascript.preferences.importModuleSpecifier": "non-relative",
-    "javascript.preferences.quoteStyle": "single",
-    "javascript.updateImportsOnFileMove.enabled": "always",
-    "php.validate.executablePath": "{PHP_EXEC}",
-    "powershell.codeFormatting.newLineAfterCloseBrace": false,
-    "powershell.codeFormatting.pipelineIndentationStyle": "IncreaseIndentationAfterEveryPipeline",
-    "powershell.codeFormatting.useCorrectCasing": true,
-    "terminal.integrated.shell.windows": "{SYS_DRIVE}\\WINDOWS\\System32\\cmd.exe",
-    "todo-tree.customHighlight": {
-        "TODO": {},
-        "FIXME": {}
-    },
-    "todo-tree.defaultHighlight": {
-        "foreground": "green",
-        "type": "text"
-    },
-    "typescript.preferences.importModuleSpecifier": "non-relative",
-    "typescript.preferences.quoteStyle": "single",
-    "typescript.updateImportsOnFileMove.enabled": "always",
-    "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
-    "workbench.colorTheme": "Darcula",
-    "workbench.startupEditor": "none"
-}
-'@
-
-$VSCodeCfg = $VSCodeCfg.Replace('{PHP_EXEC}', $PHPExec)
-$VSCodeCfg = $VSCodeCfg.Replace('{SYS_DRIVE}', $Env:SystemDrive)
-
-
 # Functions
 # ---------------------------------------------------------------------------------------------
 function InstallExtensions {
@@ -153,11 +76,76 @@ function WriteConfig {
     [OutputType([void])]
     param ()
 
-    Write-Output -InputObject ("`r`n" + 'Writing config...')
+    Write-Output -InputObject ("`r`n" + 'Searching for PHP executable...')
+
+    $PHPExec = Get-Childitem –Path ($Env:SystemDrive + '\*') -Include 'php.exe' -Recurse -Force -ErrorAction SilentlyContinue |
+        Select-Object -ExpandProperty 'FullName' -First 1
+
+    Write-Output -InputObject ('Writing config...')
 
     $VSCodeCfgFile = $Env:AppData + '\Code\User\settings.json'
 
-    WriteToFile -FilePath $VSCodeCfgFile -Contents $VSCodeCfg
+    $VSCodeCfgObj = [PSCustomObject]@{
+        'editor.suggestSelection' = 'first'
+        'html.format.wrapAttributes' = 'force-expand-multiline'
+        'importSorter.importStringConfiguration.maximumNumberOfImportExpressionsPerLine.count' = 120
+        'importSorter.sortConfiguration.customOrderingRules.rules' = @(
+            @{
+                'numberOfEmptyLinesAfterGroup' = 1
+                'orderLevel' = 40
+                'regex' = '^@app'
+            },
+            @{
+                'numberOfEmptyLinesAfterGroup' = 1
+                'orderLevel' = 50
+                'regex' = '^src'
+            },
+            @{
+                'disableSort' = $true
+                'orderLevel' = 5
+                'type' = 'importMember'
+                'regex' = '^$'
+            },
+            @{
+                'regex' = '^[^.@]'
+                'orderLevel' = 10
+            },
+            @{
+                'regex' = '^[@]'
+                'orderLevel' = 15
+            },
+            @{
+                'regex' = '^[.]'
+                'orderLevel' = 30
+            }
+        )
+        'javascript.preferences.importModuleSpecifier' = 'non-relative'
+        'javascript.preferences.quoteStyle' = 'single'
+        'javascript.updateImportsOnFileMove.enabled' = 'always'
+        'php.validate.executablePath' = $PHPExec
+        'powershell.codeFormatting.newLineAfterCloseBrace' = $false
+        'powershell.codeFormatting.pipelineIndentationStyle' = 'IncreaseIndentationAfterEveryPipeline'
+        'powershell.codeFormatting.useCorrectCasing' = $true
+        'terminal.integrated.shell.windows' = $Env:WinDir + '\System32\cmd.exe'
+        'todo-tree.customHighlight' = @{
+            'TODO' = @{}
+            'FIXME' = @{}
+        }
+        'todo-tree.defaultHighlight' = @{
+            'foreground' = 'green'
+            'type' = 'text'
+        }
+        'typescript.preferences.importModuleSpecifier' = 'non-relative'
+        'typescript.preferences.quoteStyle' = 'single'
+        'typescript.updateImportsOnFileMove.enabled' = 'always'
+        'vsintellicode.modify.editor.suggestSelection' = 'automaticallyOverrodeDefaultValue'
+        'workbench.colorTheme' = 'Darcula'
+        'workbench.startupEditor' = 'none'
+    }
+
+    $VSCodeCfgStr = ConvertToJson -InputObject $VSCodeCfgObj
+
+    WriteToFile -FilePath $VSCodeCfgFile -Contents $VSCodeCfgStr
 }
 
 
