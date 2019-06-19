@@ -78,8 +78,7 @@ function WriteConfig {
 
     Write-Output -InputObject ("`r`n" + 'Searching for PHP executable...')
 
-    $PHPExec = Get-Childitem –Path ($Env:SystemDrive + '\*') -Include 'php.exe' -Recurse -Force -ErrorAction SilentlyContinue |
-        Select-Object -ExpandProperty 'FullName' -First 1
+    $PHPExec = FindFile -Root $Env:SystemDrive -FileName 'php.exe'
 
     Write-Output -InputObject ('Writing config...')
 
