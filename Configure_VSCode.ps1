@@ -85,6 +85,16 @@ function WriteConfig {
     $VSCodeCfgFile = $Env:AppData + '\Code\User\settings.json'
 
     $VSCodeCfgObj = [PSCustomObject]@{
+        "[json]" = @{
+            "editor.detectIndentation" = $false
+            "editor.insertSpaces" = $true
+            "editor.tabSize" = 2
+        }
+        "[jsonc]" = @{
+            "editor.detectIndentation" = $false
+            "editor.insertSpaces" = $true
+            "editor.tabSize" = 2
+        }
         'editor.suggestSelection' = 'first'
         'html.format.wrapAttributes' = 'force-expand-multiline'
         'importSorter.importStringConfiguration.maximumNumberOfImportExpressionsPerLine.count' = 120
