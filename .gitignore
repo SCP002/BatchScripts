@@ -8,3 +8,6 @@
 !/.gitattributes
 !/.gitignore
 !/README.md
+
+# Not these directories
+!/lib
