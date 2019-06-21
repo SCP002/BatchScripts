@@ -18,6 +18,11 @@ $ErrorActionPreference = 'Stop'
 Set-StrictMode -Version Latest
 
 
+# Imports
+# ---------------------------------------------------------------------------------------------
+Add-Type -Path ($PSScriptRoot + '\Newtonsoft.Json.dll')
+
+
 # Functions
 # ---------------------------------------------------------------------------------------------
 function FindFile {
@@ -103,9 +108,8 @@ function ConvertToJson {
     # Convert input object to minified JSON string
     $OutputObject = ConvertTo-Json -InputObject $InputObject -Depth $Depth -Compress
 
-    # Convert minified JSON string to readable format.
-    # Not using native ConvertTo-Json commandlet without -Compress switch due to
-    # in PowerShell v5.1 it adds unnecessary indents for lists and dictonaries.
+    # Convert minified JSON string to readable format
+    # Using [Newtonsoft.Json.Linq.JToken]::Parse() to keep proper indentation
     if (-not $Compress) {
         $OutputObject = [Newtonsoft.Json.Linq.JToken]::Parse($OutputObject).ToString()
     }
