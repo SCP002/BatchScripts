@@ -20,7 +20,7 @@ Set-StrictMode -Version Latest
 
 # Imports
 # ---------------------------------------------------------------------------------------------
-. ($PSScriptRoot + '\lib\Utils.ps1')
+Import-Module -Name ($PSScriptRoot + '\lib\Utils.psm1')
 
 
 # Functions
