@@ -25,12 +25,22 @@ Import-Module -Name ($PSScriptRoot + '\lib\Utils.psm1')
 
 # Functions
 # ---------------------------------------------------------------------------------------------
+function UninstallExtensions {
+    [CmdletBinding()]
+    [OutputType([void])]
+    param ()
+
+    Write-Output -InputObject ('Uninstalling extensions...')
+
+    # TODO: This.
+}
+
 function InstallExtensions {
     [CmdletBinding()]
     [OutputType([void])]
     param ()
 
-    Write-Output -InputObject ('Installing extensions...')
+    Write-Output -InputObject ("`r`n" + 'Installing extensions...')
 
     $VSCodeExecFile = $Env:LocalAppData + '\Programs\Microsoft VS Code\bin\code.cmd'
 
@@ -80,20 +90,20 @@ function WriteConfig {
 
     $PHPExec = FindFile -Root $Env:SystemDrive -FileName 'php.exe' -PathRegex '(php[-_ ]?5\.[0-9])'
 
-    Write-Output -InputObject ('Writing config...')
+    Write-Output -InputObject ("`r`n" + 'Writing config...')
 
     $VSCodeCfgFile = $Env:AppData + '\Code\User\settings.json'
 
     $VSCodeCfgObj = [PSCustomObject]@{
-        "[json]" = @{
-            "editor.detectIndentation" = $false
-            "editor.insertSpaces" = $true
-            "editor.tabSize" = 2
+        '[json]' = @{
+            'editor.detectIndentation' = $false
+            'editor.insertSpaces' = $true
+            'editor.tabSize' = 2
         }
-        "[jsonc]" = @{
-            "editor.detectIndentation" = $false
-            "editor.insertSpaces" = $true
-            "editor.tabSize" = 2
+        '[jsonc]' = @{
+            'editor.detectIndentation' = $false
+            'editor.insertSpaces' = $true
+            'editor.tabSize' = 2
         }
         'editor.suggestSelection' = 'first'
         'html.format.wrapAttributes' = 'force-expand-multiline'
@@ -161,6 +171,8 @@ function WriteConfig {
 # Start point
 # ---------------------------------------------------------------------------------------------
 try {
+    UninstallExtensions
+
     InstallExtensions
 
     WriteConfig
