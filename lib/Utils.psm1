@@ -235,7 +235,7 @@ function ExitWithCode {
     }
 
     if ($Prompt) {
-        Read-Host -Prompt ('Press <Enter> to exit...')
+        Read-Host -Prompt ("`r`n" + 'Press <Enter> to exit...')
     }
 
     exit $Code
