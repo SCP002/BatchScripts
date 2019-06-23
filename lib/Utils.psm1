@@ -25,6 +25,67 @@ Add-Type -Path ($PSScriptRoot + '\Newtonsoft.Json.dll')
 
 # Functions
 # ---------------------------------------------------------------------------------------------
+function RemoveItem {
+    [CmdletBinding()]
+    [OutputType([void])]
+    param (
+        # Root
+        [Parameter(Mandatory = $true)]
+        [string]
+        $Root,
+
+        # Item name
+        [Parameter(Mandatory = $true)]
+        [string]
+        $ItemName,
+
+        # Directory
+        [Parameter()]
+        [switch]
+        $Directory,
+
+        # Recurse
+        [Parameter()]
+        [switch]
+        $Recurse,
+
+        # What if
+        [Parameter()]
+        [switch]
+        $WhatIf
+    )
+
+    # Build Get-Childitem commandlet arguments
+    $GetChildItemArgs = @{
+        'Path' = $Root
+        'Filter' = $ItemName
+        'Force' = $true
+    }
+
+    if ($Directory) {
+        $GetChildItemArgs.Add('Directory', $true)
+    } else {
+        $GetChildItemArgs.Add('File', $true)
+    }
+
+    if ($Recurse) {
+        $GetChildItemArgs.Add('Recurse', $true)
+    }
+
+    # Build Remove-Item commandlet arguments
+    $RemoveItemArgs = @{
+        'Recurse' = $true
+        'Force' = $true
+    }
+
+    if ($WhatIf) {
+        $RemoveItemArgs.Add('WhatIf', $true)
+    }
+
+    # Remove items
+    Get-Childitem @GetChildItemArgs | Remove-Item @RemoveItemArgs
+}
+
 function FindFile {
     [CmdletBinding()]
     [OutputType([string])]
@@ -50,6 +111,7 @@ function FindFile {
         $Root += '\'
     }
 
+    # Search
     $Result = Get-Childitem –Path $Root -Filter $FileName -Recurse -Force -ErrorAction SilentlyContinue |
         Where-Object -Property 'DirectoryName' -Match $PathRegex -ErrorAction SilentlyContinue |
             Select-Object -ExpandProperty 'FullName' -First 1
