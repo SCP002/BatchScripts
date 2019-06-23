@@ -29,10 +29,10 @@ function RemoveItem {
     [CmdletBinding()]
     [OutputType([void])]
     param (
-        # Root
+        # Path
         [Parameter(Mandatory = $true)]
         [string]
-        $Root,
+        $Path,
 
         # Item name
         [Parameter(Mandatory = $true)]
@@ -57,7 +57,7 @@ function RemoveItem {
 
     # Build Get-Childitem commandlet arguments
     $GetChildItemArgs = @{
-        'Path' = $Root
+        'Path' = $Path
         'Filter' = $ItemName
         'Force' = $true
     }
@@ -90,10 +90,10 @@ function FindFile {
     [CmdletBinding()]
     [OutputType([string])]
     param (
-        # Root
+        # Path
         [Parameter(Mandatory = $true)]
         [string]
-        $Root,
+        $Path,
 
         # File name
         [Parameter(Mandatory = $true)]
@@ -107,12 +107,12 @@ function FindFile {
     )
 
     # If path is a drive root, add slash to resolve path properly
-    if ($Root.EndsWith(':')) {
-        $Root += '\'
+    if ($Path.EndsWith(':')) {
+        $Path += '\'
     }
 
     # Search
-    $Result = Get-Childitem –Path $Root -Filter $FileName -Recurse -Force -ErrorAction SilentlyContinue |
+    $Result = Get-Childitem –Path $Path -Filter $FileName -Recurse -Force -ErrorAction SilentlyContinue |
         Where-Object -Property 'DirectoryName' -Match $PathRegex -ErrorAction SilentlyContinue |
             Select-Object -ExpandProperty 'FullName' -First 1
 

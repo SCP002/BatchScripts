@@ -88,7 +88,7 @@ function WriteConfig {
 
     Write-Output -InputObject ("`r`n" + 'Searching for PHP executable...')
 
-    $PHPExec = FindFile -Root $Env:SystemDrive -FileName 'php.exe' -PathRegex '(php[-_ ]?5\.[0-9])'
+    $PHPExec = FindFile -Path $Env:SystemDrive -FileName 'php.exe' -PathRegex '(php[-_ ]?5\.[0-9])'
 
     Write-Output -InputObject ("`r`n" + 'Writing config...')
 
