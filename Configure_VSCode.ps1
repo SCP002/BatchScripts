@@ -32,7 +32,31 @@ function UninstallExtensions {
 
     Write-Output -InputObject ('Uninstalling extensions...')
 
-    # TODO: This.
+    $VSCodeProcesses = Get-Process -Name 'Code' -ErrorAction SilentlyContinue
+
+    if ($VSCodeProcesses) {
+        $Message = @(
+            'Visual Studio Code is running.',
+            'To uninstall extensions correctly it is required to close VSCode.',
+            'Please select action:'
+        )
+
+        $Choices = @(
+            '&Skip uninstalling',
+            '&Close Visual Studio Code',
+            '&Exit'
+        )
+
+        $OptionIndex = PromptForChoice -Message $Message -Choices $Choices
+
+        switch ($OptionIndex) {
+            0 { return }
+            1 { Stop-Process -Name 'Code' -Force }
+            2 { exit 1 }
+        }
+    }
+
+    RemoveItem -Path ($Env:UserProfile + '\.vscode') -ItemName 'extensions' -Directory
 }
 
 function InstallExtensions {
