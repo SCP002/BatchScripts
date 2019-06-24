@@ -96,7 +96,7 @@ function InstallExtensions {
         'ecmel.vscode-html-css',
         'eg2.vscode-npm-script',
         'michelemelluso.code-beautifier',
-        'visualstudioexptteam.vscodeintellicode'
+        'VisualStudioExptTeam.vscodeintellicode'
     )
 
     foreach ($Extension in $Extensions) {
