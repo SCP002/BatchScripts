@@ -25,6 +25,44 @@ Add-Type -Path ($PSScriptRoot + '\Newtonsoft.Json.dll')
 
 # Functions
 # ---------------------------------------------------------------------------------------------
+function PromptForChoice {
+    [CmdletBinding()]
+    [OutputType([int])]
+    param (
+        # Caption
+        [Parameter()]
+        [string]
+        $Caption = "`r`n",
+
+        # Message
+        [Parameter(Mandatory = $true)]
+        [string[]]
+        $Message,
+
+        # Choices
+        [Parameter(Mandatory = $true)]
+        [string[]]
+        $Choices,
+
+        # Default choice
+        [Parameter()]
+        [int]
+        $DefaultChoise = 0
+    )
+
+    # Build newline-separated string from message array
+    $MessageStr = $Message -join "`r`n"
+
+    # Cast choices string array to 'ChoiceDescription' objects array
+    $ChoicesObj = [System.Management.Automation.Host.ChoiceDescription[]]$Choices
+
+    # Prompt for choice
+    $OptionIndex = $Host.UI.PromptForChoice($Caption, $MessageStr, $ChoicesObj, $DefaultChoise)
+
+    # Return index of selected option
+    return $OptionIndex
+}
+
 function RemoveItem {
     [CmdletBinding()]
     [OutputType([void])]
@@ -116,6 +154,7 @@ function FindFile {
         Where-Object -Property 'DirectoryName' -Match $PathRegex -ErrorAction SilentlyContinue |
             Select-Object -ExpandProperty 'FullName' -First 1
 
+    # Return full file path
     return $Result
 }
 
