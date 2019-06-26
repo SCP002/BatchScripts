@@ -75,7 +75,6 @@ function InstallExtensions {
         # General
         'christian-kohler.path-intellisense',
         'EditorConfig.EditorConfig',
-        'formulahendry.code-runner',
         'Gruntfuggly.todo-tree',
         'k--kato.intellij-idea-keybindings',
         'rokoroku.vscode-theme-darcula',
