@@ -102,13 +102,11 @@ function InstallExtensions {
     $CurrentExtensionNumber = 1
 
     foreach ($Extension in $Extensions) {
-        $Status = 'Done {0} of {1}' -f @($CurrentExtensionNumber, $ExtensionsLen)
-        $PercentComplete = $CurrentExtensionNumber * (100 / $ExtensionsLen)
-
-        Write-Progress -Activity 'Extensions install progress' -Status $Status -PercentComplete $PercentComplete
+        $Status = '[{0} / {1}] ' -f @($CurrentExtensionNumber, $ExtensionsLen)
 
         StartProcess -FilePath $VSCodeExecFile -ArgumentList @('--install-extension', $Extension, '--force') -Wait -DisplayOutput |
-            Select-String -Pattern 'Installing extensions\.\.\.' -NotMatch  # Refine output
+            Select-String -Pattern 'Installing extensions\.\.\.' -NotMatch |  # Refine output
+                ForEach-Object -Process { $Status + $_ }  # Add status to output
 
         $CurrentExtensionNumber += 1
     }
