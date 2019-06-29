@@ -203,9 +203,12 @@ function ConvertToJson {
     # Convert input object to minified JSON string
     $OutputObject = ConvertTo-Json -InputObject $InputObject -Depth $Depth -Compress
 
-    # Convert minified JSON string to readable format, return converted string
-    # Using [Newtonsoft.Json.Linq.JToken]::Parse() to keep proper indentation
-    if (-not $Compress) {
+    if ($Compress) {
+        # Return minified JSON string
+        Write-Output -InputObject ($OutputObject)
+    } else {
+        # Convert minified JSON string to readable format, return converted string
+        # Using [Newtonsoft.Json.Linq.JToken]::Parse() to keep proper indentation
         [Newtonsoft.Json.Linq.JToken]::Parse($OutputObject).ToString()
     }
 }
