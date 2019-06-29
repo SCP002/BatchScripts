@@ -104,7 +104,7 @@ function InstallExtensions {
     foreach ($Extension in $Extensions) {
         $Status = '[{0} / {1}] ' -f @($CurrentExtensionNumber, $ExtensionsLen)
 
-        StartProcess -FilePath $VSCodeExecFile -ArgumentList @('--install-extension', $Extension, '--force') -Wait -DisplayOutput |
+        StartProcess -FilePath $VSCodeExecFile -ArgumentList @('--install-extension', $Extension, '--force') -Wait |
             Select-String -Pattern 'Installing extensions\.\.\.' -NotMatch |  # Refine output
                 ForEach-Object -Process { $Status + $_ }  # Add status to output
 
