@@ -252,11 +252,21 @@ function StartProcess {
         Push-Location -Path $WorkingDirectory
     }
 
-    # Start process
     if ($Wait) {  # Output can be captured only if user will to wait for executable to finish
+        # Start process, capture output, wait to finish
         & $FilePath $ArgumentList *>&1
     } else {
-        Start-Process -FilePath $FilePath -ArgumentList $ArgumentList
+        # Build Start-Process commandlet arguments
+        $StartProcessArgs = @{
+            'FilePath' = $FilePath
+        }
+    
+        if ($ArgumentList) {
+            $StartProcessArgs.Add('ArgumentList', $ArgumentList)
+        }
+
+        # Start process, skip output, continue
+        Start-Process @StartProcessArgs
     }
 
     # Change directory to previous
