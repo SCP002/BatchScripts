@@ -56,8 +56,11 @@ function PromptForChoice {
     # Cast choices string array to 'ChoiceDescription' objects array
     $ChoicesObj = [System.Management.Automation.Host.ChoiceDescription[]]$Choices
 
-    # Prompt for choice, return index of selected option
-    $Host.UI.PromptForChoice($Caption, $MessageStr, $ChoicesObj, $DefaultChoise)
+    # Prompt for choice
+    $OptionIndex = $Host.UI.PromptForChoice($Caption, $MessageStr, $ChoicesObj, $DefaultChoise)
+
+    # Return index of selected option
+    return $OptionIndex
 }
 
 function RemoveItem {
@@ -146,10 +149,13 @@ function FindFile {
         $Path += '\'
     }
 
-    # Search, return full file path
-    Get-Childitem –Path $Path -Filter $FileName -Recurse -Force -ErrorAction SilentlyContinue |
+    # Search
+    $Result = Get-Childitem –Path $Path -Filter $FileName -Recurse -Force -ErrorAction SilentlyContinue |
         Where-Object -Property 'DirectoryName' -Match $PathRegex -ErrorAction SilentlyContinue |
             Select-Object -ExpandProperty 'FullName' -First 1
+
+    # Return full file path
+    return $Result
 }
 
 function WriteToFile {
@@ -203,11 +209,14 @@ function ConvertToJson {
     # Convert input object to minified JSON string
     $OutputObject = ConvertTo-Json -InputObject $InputObject -Depth $Depth -Compress
 
-    # Convert minified JSON string to readable format, return converted string
+    # Convert minified JSON string to readable format
     # Using [Newtonsoft.Json.Linq.JToken]::Parse() to keep proper indentation
     if (-not $Compress) {
-        [Newtonsoft.Json.Linq.JToken]::Parse($OutputObject).ToString()
+        $OutputObject = [Newtonsoft.Json.Linq.JToken]::Parse($OutputObject).ToString()
     }
+
+    # Return output object
+    return $OutputObject
 }
 
 function StartProcess {
@@ -244,7 +253,7 @@ function StartProcess {
     }
 
     if ($Wait) {  # Output can be captured only if user will to wait for executable to finish
-        # Start process, capture output, wait to finish, return lines array
+        # Start process, capture output, wait to finish
         & $FilePath $ArgumentList *>&1
     } else {
         # Build Start-Process commandlet arguments
