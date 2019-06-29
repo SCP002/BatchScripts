@@ -241,20 +241,8 @@ function StartProcess {
         # Wait
         [Parameter()]
         [switch]
-        $Wait,
-
-        # Display output
-        [Parameter()]
-        [switch]
-        $DisplayOutput
+        $Wait
     )
-
-    # Prepare variables
-    $Result = [PSCustomObject]@{
-        Success = $false
-        ExitCode = -1
-        Out = ''
-    }
 
     # Expand FilePath to full form
     $FilePath = Resolve-Path -Path $FilePath
@@ -266,27 +254,15 @@ function StartProcess {
 
     # Start process
     if ($Wait) {  # Output can be captured only if user will to wait for executable to finish
-        if ($DisplayOutput) {
-            & $FilePath $ArgumentList *>&1 | Tee-Object -Variable Out
-        } else {
-            & $FilePath $ArgumentList *>&1 | Tee-Object -Variable Out | Out-Null
-        }
+        & $FilePath $ArgumentList *>&1
     } else {
         Start-Process -FilePath $FilePath -ArgumentList $ArgumentList
     }
-
-    # Prepare result object
-    $Result.Success = $?
-    $Result.ExitCode = $LASTEXITCODE
-    $Result.Out = ($Out | Out-String)
 
     # Change directory to previous
     if ($WorkingDirectory) {
         Pop-Location
     }
-
-    # Return result object
-    return $Result
 }
 
 function ExitWithCode {
