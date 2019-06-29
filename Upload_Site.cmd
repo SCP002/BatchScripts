@@ -23,12 +23,16 @@ Set /P Password=Password:
 Echo.
 Echo Press ^<Enter^> to set default value
 Set /P Address=Address: 
+Set /P Port=Port: 
 Set /P Source_Path=Source path: 
 Set /P Destination_Path=Destination path: 
 
 
 If "%Address%" Equ "" (
     Set Address=10.31.255.80
+)
+If "%Port%" Equ "" (
+    Set Port=22
 )
 If "%Source_Path%" Equ "" (
     Set Source_Path=D:\Projects\SKS
@@ -92,7 +96,7 @@ Exit /B 0
     SetLocal
     Set Command=%~1
 
-    Start "PLink" /D "%Utils_Path%" /B /Wait "%Utils_Path%\PLink.exe" -ssh -l "%Login%" -batch -pw "%Password%" -t "%Address%" "%Command%"
+    Start "PLink" /D "%Utils_Path%" /B /Wait "%Utils_Path%\PLink.exe" -ssh -P "%Port%" -l "%Login%" -batch -pw "%Password%" -t "%Address%" "%Command%"
 
     EndLocal
 Exit /B 0
@@ -103,7 +107,7 @@ Exit /B 0
     Set Source_Path=%~1
     Set Destination_Path=%~2
 
-    Start "PSCP" /D "%Utils_Path%" /B /Wait "%Utils_Path%\PSCP.exe" -q -r -l "%Login%" -pw "%Password%" -batch -unsafe "%Source_Path%\*" "%Address%":"%Destination_Path%"
+    Start "PSCP" /D "%Utils_Path%" /B /Wait "%Utils_Path%\PSCP.exe" -q -r -P "%Port%" -l "%Login%" -pw "%Password%" -batch -unsafe -scp "%Source_Path%\*" "%Address%":"%Destination_Path%"
 
     EndLocal
 Exit /B 0
