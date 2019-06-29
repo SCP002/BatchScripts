@@ -221,7 +221,7 @@ function ConvertToJson {
 
 function StartProcess {
     [CmdletBinding()]
-    [OutputType([PSCustomObject])]
+    [OutputType([string[]])]
     param (
         # File path
         [Parameter(Mandatory = $true)]
