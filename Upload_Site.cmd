@@ -26,6 +26,7 @@ Set /P Address=Address:
 Set /P Port=Port: 
 Set /P Source_Path=Source path: 
 Set /P Destination_Path=Destination path: 
+Set /P PSCP_Protocol=PSCP protocol (sftp / scp): 
 
 
 If "%Address%" Equ "" (
@@ -40,6 +41,9 @@ If "%Source_Path%" Equ "" (
 If "%Destination_Path%" Equ "" (
     Set Destination_Path=/var/www/html/sks
 )
+If "%PSCP_Protocol%" Equ "" (
+    Set PSCP_Protocol=sftp
+)
 
 
 Set Utils_Path=D:\Programs
@@ -47,8 +51,10 @@ Set Utils_Path=D:\Programs
 
 Echo.
 Echo Address: %Address%
+Echo Port: %Port%
 Echo Source path: %Source_Path%
 Echo Destination path: %Destination_Path%
+Echo PSCP protocol: %PSCP_Protocol%
 Echo.
 Pause
 
@@ -107,7 +113,7 @@ Exit /B 0
     Set Source_Path=%~1
     Set Destination_Path=%~2
 
-    Start "PSCP" /D "%Utils_Path%" /B /Wait "%Utils_Path%\PSCP.exe" -q -r -P "%Port%" -l "%Login%" -pw "%Password%" -batch -unsafe -scp "%Source_Path%\*" "%Address%":"%Destination_Path%"
+    Start "PSCP" /D "%Utils_Path%" /B /Wait "%Utils_Path%\PSCP.exe" -q -r -P "%Port%" -l "%Login%" -pw "%Password%" -batch -unsafe -%PSCP_Protocol% "%Source_Path%\*" "%Address%":"%Destination_Path%"
 
     EndLocal
 Exit /B 0
