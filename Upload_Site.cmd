@@ -1,12 +1,13 @@
 @Echo Off
-ChCp 65001
+ChCp 65001 >Nul
 SetLocal DisableDelayedExpansion EnableExtensions
 Title %~0
 
 
 
 Echo Before first run on the new OS, launch "PuTTY" to accept SSH key
-Echo Make sure you have "/etc/httpd/conf/httpd.conf": "AddDefaultCharset" set to "UTF-8"
+Echo Make sure you have ".htaccess" files enabled
+Echo Make sure you have user added to sudo group and sudoers file
 
 
 
@@ -66,7 +67,7 @@ Pause
 Echo.
 Echo Upload...
 
-Call :ExecuteCommand "sudo /sbin/service httpd stop"
+Call :ExecuteCommand "sudo /etc/init.d/apache2 stop"
 
 
 Call :ExecuteCommand "sudo rm -rf %Destination_Path%"
@@ -79,7 +80,7 @@ Call :ExecuteCommand "sudo chown -R %Login% %Destination_Path%"
 Call :UploadFiles "%Source_Path%" "%Destination_Path%"
 
 
-Call :ExecuteCommand "sudo /sbin/service httpd start"
+Call :ExecuteCommand "sudo /etc/init.d/apache2 start"
 
 
 
