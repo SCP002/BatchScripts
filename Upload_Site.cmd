@@ -40,7 +40,7 @@ If "%Source_Path%" Equ "" (
     Set Source_Path=D:\Projects\SKS
 )
 If "%Destination_Path%" Equ "" (
-    Set Destination_Path=/var/www/html/sks
+    Set Destination_Path=/var/www/sks
 )
 If "%PSCP_Protocol%" Equ "" (
     Set PSCP_Protocol=sftp
@@ -67,7 +67,7 @@ Pause
 Echo.
 Echo Upload...
 
-Call :ExecuteCommand "sudo /etc/init.d/apache2 stop"
+:: Call :ExecuteCommand "sudo /etc/init.d/apache2 stop"
 
 
 Call :ExecuteCommand "sudo rm -rf %Destination_Path%"
@@ -80,7 +80,7 @@ Call :ExecuteCommand "sudo chown -R %Login% %Destination_Path%"
 Call :UploadFiles "%Source_Path%" "%Destination_Path%"
 
 
-Call :ExecuteCommand "sudo /etc/init.d/apache2 start"
+:: Call :ExecuteCommand "sudo /etc/init.d/apache2 start"
 
 
 
