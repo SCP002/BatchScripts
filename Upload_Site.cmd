@@ -30,10 +30,10 @@ Set /P PSCP_Protocol=PSCP protocol (sftp / scp):
 
 
 If "%Address%" Equ "" (
-    Set Address=10.31.255.80
+    Set Address=10.31.255.10
 )
 If "%Port%" Equ "" (
-    Set Port=22
+    Set Port=922
 )
 If "%Source_Path%" Equ "" (
     Set Source_Path=D:\Projects\SKS
