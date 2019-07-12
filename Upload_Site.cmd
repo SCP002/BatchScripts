@@ -31,7 +31,7 @@ Set /P PSCP_Protocol=PSCP protocol (sftp / scp):
 
 
 If "%Address%" Equ "" (
-    Set Address=10.31.255.10
+    Set Address=10.31.255.1
 )
 If "%Port%" Equ "" (
     Set Port=922
