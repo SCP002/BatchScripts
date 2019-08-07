@@ -60,6 +60,7 @@ Echo Cleanup...
 Erase /F /S /Q /A "%MC_Path%\*.bak"
 Erase /F /S /Q /A "%MC_Path%\class_cache.zip"
 Erase /F /S /Q /A "%MC_Path%\hs_err_pid*.log"
+Erase /F /S /Q /A "%MC_Path%\usercache.json"
 
 
 For /F "UseBackQ" %%I In (
