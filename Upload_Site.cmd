@@ -37,7 +37,7 @@ If "%Port%" Equ "" (
     Set Port=922
 )
 If "%Source_Path%" Equ "" (
-    Set Source_Path=D:\Projects\SKS
+    Set Source_Path=D:\Projects\sks
 )
 If "%Destination_Path%" Equ "" (
     Set Destination_Path=/var/www/sks
