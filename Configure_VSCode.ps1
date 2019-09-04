@@ -74,7 +74,7 @@ function InstallExtensions {
 
         # General
         'christian-kohler.path-intellisense',
-        'davidanson.vscode-markdownlint',
+        'DavidAnson.vscode-markdownlint',
         'EditorConfig.EditorConfig',
         'Gruntfuggly.todo-tree',
         'k--kato.intellij-idea-keybindings',
@@ -82,7 +82,7 @@ function InstallExtensions {
         'Tyriar.sort-lines',
 
         # Go
-        'ms-vscode.go',
+        'ms-vscode.Go',
 
         # PHP
         'bmewburn.vscode-intelephense-client',
