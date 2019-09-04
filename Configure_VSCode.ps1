@@ -74,11 +74,15 @@ function InstallExtensions {
 
         # General
         'christian-kohler.path-intellisense',
+        'davidanson.vscode-markdownlint',
         'EditorConfig.EditorConfig',
         'Gruntfuggly.todo-tree',
         'k--kato.intellij-idea-keybindings',
         'rokoroku.vscode-theme-darcula',
         'Tyriar.sort-lines',
+
+        # Go
+        'ms-vscode.go',
 
         # PHP
         'bmewburn.vscode-intelephense-client',
@@ -137,6 +141,10 @@ function WriteConfig {
             'editor.tabSize' = 2
         }
         'editor.suggestSelection' = 'first'
+        'go.toolsEnvVars' = @{
+            'GO111MODULE' = 'on'
+        }
+        'go.useLanguageServer' = $true
         'html.format.wrapAttributes' = 'force-expand-multiline'
         'importSorter.importStringConfiguration.maximumNumberOfImportExpressionsPerLine.count' = 120
         'importSorter.sortConfiguration.customOrderingRules.rules' = @(
