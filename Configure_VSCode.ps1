@@ -87,9 +87,6 @@ function InstallExtensions {
         # PHP
         'bmewburn.vscode-intelephense-client',
 
-        # PowerShell
-        'ms-vscode.powershell',
-
         # TypeScript
         'mike-co.import-sorter',
         'ms-vscode.vscode-typescript-tslint-plugin',
@@ -181,15 +178,12 @@ function WriteConfig {
         'javascript.preferences.quoteStyle' = 'single'
         'javascript.updateImportsOnFileMove.enabled' = 'always'
         'php.validate.executablePath' = $PHPExec
-        'powershell.codeFormatting.newLineAfterCloseBrace' = $false
-        'powershell.codeFormatting.pipelineIndentationStyle' = 'IncreaseIndentationAfterEveryPipeline'
-        'powershell.codeFormatting.useCorrectCasing' = $true
         'terminal.integrated.shell.windows' = $Env:WinDir + '\System32\cmd.exe'
-        'todo-tree.customHighlight' = @{
+        'todo-tree.highlights.customHighlight' = @{
             'TODO' = @{}
             'FIXME' = @{}
         }
-        'todo-tree.defaultHighlight' = @{
+        'todo-tree.highlights.defaultHighlight' = @{
             'foreground' = 'green'
             'type' = 'text'
         }
