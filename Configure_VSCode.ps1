@@ -179,11 +179,11 @@ function WriteConfig {
         'javascript.updateImportsOnFileMove.enabled' = 'always'
         'php.validate.executablePath' = $PHPExec
         'terminal.integrated.shell.windows' = $Env:WinDir + '\System32\cmd.exe'
-        'todo-tree.highlights.customHighlight' = @{
+        'todo-tree.customHighlight' = @{
             'TODO' = @{}
             'FIXME' = @{}
         }
-        'todo-tree.highlights.defaultHighlight' = @{
+        'todo-tree.defaultHighlight' = @{
             'foreground' = 'green'
             'type' = 'text'
         }
