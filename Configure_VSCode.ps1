@@ -110,7 +110,10 @@ function InstallExtensions {
                 Select-String -Pattern 'Installing extensions\.\.\.' -NotMatch |  # Refine output
                     ForEach-Object -Process { $Status + $_ }  # Add status to output
         } catch [System.Management.Automation.RemoteException] {
-            # Skip DeprecationWarning
+            # Suppress DeprecationWarning
+            if ($_.Exception.Message -notlike '*DeprecationWarning*') {
+                $_
+            }
         }
 
         $CurrentExtensionNumber += 1
