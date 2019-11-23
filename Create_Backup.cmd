@@ -126,12 +126,12 @@ Set Current_Error_Code=1
 
 
 For /F "UseBackQ Tokens=1 Delims= " %%I In (
-    `Start "GDrive" /D "%Utils_Path%" /B /Wait "%Utils_Path%\GDrive.exe" list --max "0" --order "createdTime desc" --name-width "0" --absolute ^
+    `Start "GDrive" /D "%Utils_Path%" /B /Wait "%Utils_Path%\GDrive.exe" --oauth-credentials "%Utils_Path%\GDriveOAuth.json" list --max "0" --order "createdTime desc" --name-width "0" --absolute ^
         ^| FindStr /R /C:" *Backups *dir *"`
 ) Do (
     SetLocal EnableDelayedExpansion
 
-    Start "GDrive" /D "%Utils_Path%" /B /Wait "%Utils_Path%\GDrive.exe" upload --parent "%%I" "D:\%Archive_Name%.zip" ^
+    Start "GDrive" /D "%Utils_Path%" /B /Wait "%Utils_Path%\GDrive.exe" --oauth-credentials "%Utils_Path%\GDriveOAuth.json" upload --parent "%%I" "D:\%Archive_Name%.zip" ^
         | FindStr /R /C:"^Uploaded .* at .*, total .*"
 
     Set Current_Error_Code=!ErrorLevel!
@@ -156,7 +156,7 @@ Echo.
 Echo GetOldID...
 
 For /F "UseBackQ Tokens=1 Delims= " %%I In (
-    `Start "GDrive" /D "%Utils_Path%" /B /Wait "%Utils_Path%\GDrive.exe" list --max "0" --order "createdTime desc" --name-width "0" --absolute ^
+    `Start "GDrive" /D "%Utils_Path%" /B /Wait "%Utils_Path%\GDrive.exe" --oauth-credentials "%Utils_Path%\GDriveOAuth.json" list --max "0" --order "createdTime desc" --name-width "0" --absolute ^
         ^| FindStr /R /C:" *Backups\\.*\.zip *bin *"`
 ) Do (
     Set /A Backups_Counter=%Backups_Counter%+1
@@ -194,7 +194,7 @@ If "%Backups_Counter%" LEQ "%Backups_Max_Amount%" (
 Echo.
 Echo DeleteOld...
 
-Start "GDrive" /D "%Utils_Path%" /B /Wait "%Utils_Path%\GDrive.exe" delete "%Old_ID%" ^
+Start "GDrive" /D "%Utils_Path%" /B /Wait "%Utils_Path%\GDrive.exe" --oauth-credentials "%Utils_Path%\GDriveOAuth.json" delete "%Old_ID%" ^
     | FindStr /R /C:"^Deleted '.*\.zip'"
 
 Set Current_Error_Code=%ErrorLevel%
