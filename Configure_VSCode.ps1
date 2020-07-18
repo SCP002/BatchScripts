@@ -145,6 +145,7 @@ function WriteConfig {
             'editor.tabSize' = 2
         }
         'editor.suggestSelection' = 'first'
+        'files.autoSave' = 'afterDelay'
         'go.toolsEnvVars' = @{
             'GO111MODULE' = 'on'
         }
