@@ -82,7 +82,7 @@ function InstallExtensions {
         'Tyriar.sort-lines',
 
         # Go
-        'ms-vscode.Go',
+        'golang.Go',
 
         # PHP
         'bmewburn.vscode-intelephense-client',
