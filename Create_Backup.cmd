@@ -5,7 +5,7 @@ Title %~0
 
 
 
-Echo Before first run on the new OS, run "GDrive.exe about" to perform authentication
+Echo Before first run on the new OS, run "GDrive.exe --oauth-credentials GDriveOAuth.json about" to perform authentication
 
 
 
@@ -108,6 +108,8 @@ Start "7-Zip" /D "%ProgramFiles%\7-Zip" /B /Wait "%ProgramFiles%\7-Zip\7z.exe" a
     "D:\Downloads" ^
     "D:\Drivers" ^
     "D:\Games\Minecraft" ^
+    "D:\Games\World of Warcraft\_retail_\Interface\AddOns" ^
+    "D:\Games\World of Warcraft\_retail_\WTF" ^
     "D:\Information" ^
     "D:\Installers" ^
     "D:\Programs" ^
