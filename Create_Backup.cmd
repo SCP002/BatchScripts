@@ -115,11 +115,11 @@ Echo Archivate...
 
 Start "7-Zip" /D "%ProgramFiles%\7-Zip" /B /Wait "%ProgramFiles%\7-Zip\7z.exe" a -mx=5 -mm=Deflate -p%Archive_Pwd% -r -sccUTF-8 -spf -ssw -tzip -y -- ^
     "D:\%Archive_Name%.zip" ^
+    "%MC_Path%" ^
+    "%WoW_Path%\_retail_\Interface" ^
+    "%WoW_Path%\_retail_\WTF" ^
     "D:\Downloads" ^
     "D:\Drivers" ^
-    "%MC_Path%" ^
-    "%WoW_Path%\_retail_\Interface\AddOns" ^
-    "%WoW_Path%\_retail_\WTF" ^
     "D:\Information" ^
     "D:\Installers" ^
     "D:\Programs" ^
