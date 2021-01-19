@@ -16,6 +16,7 @@ Echo.
 Echo SetVariables...
 
 Set MC_Path=D:\Games\Minecraft
+Set WoW_Path=D:\Games\World of Warcraft
 Set Utils_Path=D:\Programs
 Set Projects_Path=D:\Projects
 
@@ -83,6 +84,15 @@ For /F "UseBackQ" %%I In (
 )
 
 
+Erase /F /S /Q /A "%WoW_Path%\_retail_\WTF\*.bak"
+Erase /F /S /Q /A "%WoW_Path%\_retail_\WTF\*.old"
+Erase /F /S /Q /A "%WoW_Path%\_retail_\WTF\bindings-cache.wtf"
+Erase /F /S /Q /A "%WoW_Path%\_retail_\WTF\cache.md5"
+Erase /F /S /Q /A "%WoW_Path%\_retail_\WTF\chat-cache.txt"
+Erase /F /S /Q /A "%WoW_Path%\_retail_\WTF\config-cache.wtf"
+Erase /F /S /Q /A "%WoW_Path%\_retail_\WTF\macros-cache.txt"
+
+
 For /F "UseBackQ" %%I In (
     `Dir /A:D /B /S "%Projects_Path%\.mypy_cache"`
 ) Do (
@@ -107,9 +117,9 @@ Start "7-Zip" /D "%ProgramFiles%\7-Zip" /B /Wait "%ProgramFiles%\7-Zip\7z.exe" a
     "D:\%Archive_Name%.zip" ^
     "D:\Downloads" ^
     "D:\Drivers" ^
-    "D:\Games\Minecraft" ^
-    "D:\Games\World of Warcraft\_retail_\Interface\AddOns" ^
-    "D:\Games\World of Warcraft\_retail_\WTF" ^
+    "%MC_Path%" ^
+    "%WoW_Path%\_retail_\Interface\AddOns" ^
+    "%WoW_Path%\_retail_\WTF" ^
     "D:\Information" ^
     "D:\Installers" ^
     "D:\Programs" ^
