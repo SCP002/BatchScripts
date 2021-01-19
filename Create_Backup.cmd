@@ -16,15 +16,15 @@ Echo.
 Echo SetVariables...
 
 Set MC_Path=D:\Games\Minecraft
-Set WoW_Path=D:\Games\World of Warcraft
-Set Utils_Path=D:\Programs
+Set Programs_Path=D:\Programs
 Set Projects_Path=D:\Projects
+Set WoW_Path=D:\Games\World of Warcraft
 
 Set Archive_Name=%Date:~-10%
 Set Archive_Name=%Archive_Name:/=.%
 
-Set Backups_Max_Amount=3
 Set Backups_Counter=0
+Set Backups_Max_Amount=3
 
 Set Current_Error_Code=0
 
@@ -116,14 +116,14 @@ Echo Archivate...
 Start "7-Zip" /D "%ProgramFiles%\7-Zip" /B /Wait "%ProgramFiles%\7-Zip\7z.exe" a -mx=5 -mm=Deflate -p%Archive_Pwd% -r -sccUTF-8 -spf -ssw -tzip -y -- ^
     "D:\%Archive_Name%.zip" ^
     "%MC_Path%" ^
+    "%Programs_Path%" ^
+    "%Projects_Path%" ^
     "%WoW_Path%\_retail_\Interface" ^
     "%WoW_Path%\_retail_\WTF" ^
     "D:\Downloads" ^
     "D:\Drivers" ^
     "D:\Information" ^
     "D:\Installers" ^
-    "D:\Programs" ^
-    "D:\Projects" ^
     "D:\Scripts"
 
 
@@ -138,12 +138,12 @@ Set Current_Error_Code=1
 
 
 For /F "UseBackQ Tokens=1 Delims= " %%I In (
-    `Start "GDrive" /D "%Utils_Path%" /B /Wait "%Utils_Path%\GDrive.exe" --oauth-credentials "%Utils_Path%\GDriveOAuth.json" list --max "0" --order "createdTime desc" --name-width "0" --absolute ^
+    `Start "GDrive" /D "%Programs_Path%" /B /Wait "%Programs_Path%\GDrive.exe" --oauth-credentials "%Programs_Path%\GDriveOAuth.json" list --max "0" --order "createdTime desc" --name-width "0" --absolute ^
         ^| FindStr /R /C:" *Backups *dir *"`
 ) Do (
     SetLocal EnableDelayedExpansion
 
-    Start "GDrive" /D "%Utils_Path%" /B /Wait "%Utils_Path%\GDrive.exe" --oauth-credentials "%Utils_Path%\GDriveOAuth.json" upload --parent "%%I" "D:\%Archive_Name%.zip" ^
+    Start "GDrive" /D "%Programs_Path%" /B /Wait "%Programs_Path%\GDrive.exe" --oauth-credentials "%Programs_Path%\GDriveOAuth.json" upload --parent "%%I" "D:\%Archive_Name%.zip" ^
         | FindStr /R /C:"^Uploaded .* at .*, total .*"
 
     Set Current_Error_Code=!ErrorLevel!
@@ -168,7 +168,7 @@ Echo.
 Echo GetOldID...
 
 For /F "UseBackQ Tokens=1 Delims= " %%I In (
-    `Start "GDrive" /D "%Utils_Path%" /B /Wait "%Utils_Path%\GDrive.exe" --oauth-credentials "%Utils_Path%\GDriveOAuth.json" list --max "0" --order "createdTime desc" --name-width "0" --absolute ^
+    `Start "GDrive" /D "%Programs_Path%" /B /Wait "%Programs_Path%\GDrive.exe" --oauth-credentials "%Programs_Path%\GDriveOAuth.json" list --max "0" --order "createdTime desc" --name-width "0" --absolute ^
         ^| FindStr /R /C:" *Backups\\.*\.zip *bin *"`
 ) Do (
     Set /A Backups_Counter=%Backups_Counter%+1
@@ -206,7 +206,7 @@ If "%Backups_Counter%" LEQ "%Backups_Max_Amount%" (
 Echo.
 Echo DeleteOld...
 
-Start "GDrive" /D "%Utils_Path%" /B /Wait "%Utils_Path%\GDrive.exe" --oauth-credentials "%Utils_Path%\GDriveOAuth.json" delete "%Old_ID%" ^
+Start "GDrive" /D "%Programs_Path%" /B /Wait "%Programs_Path%\GDrive.exe" --oauth-credentials "%Programs_Path%\GDriveOAuth.json" delete "%Old_ID%" ^
     | FindStr /R /C:"^Deleted '.*\.zip'"
 
 Set Current_Error_Code=%ErrorLevel%
