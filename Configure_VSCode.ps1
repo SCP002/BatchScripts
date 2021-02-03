@@ -146,6 +146,8 @@ function WriteConfig {
         }
         'editor.suggestSelection' = 'first'
         'files.autoSave' = 'afterDelay'
+        'go.formatTool' = 'goimports'
+        'go.lintTool' = 'golangci-lint'
         'go.toolsEnvVars' = @{
             'GO111MODULE' = 'on'
         }
