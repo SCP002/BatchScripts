@@ -11,10 +11,10 @@ Title %~0
 Echo.
 Echo InstallNodeModules...
 
-npm install --global typescript
-npm install --global ts-node
-npm install --global @types/node
-npm install --global @angular/cli
+Call "%ProgramFiles%\nodejs\npm.cmd" install --global typescript
+Call "%ProgramFiles%\nodejs\npm.cmd" install --global ts-node
+Call "%ProgramFiles%\nodejs\npm.cmd" install --global @types/node
+Call "%ProgramFiles%\nodejs\npm.cmd" install --global @angular/cli
 
 
 
