@@ -151,6 +151,7 @@ function WriteConfig {
         'go.toolsEnvVars' = @{
             'GO111MODULE' = 'on'
         }
+        'go.toolsManagement.autoUpdate' = $true
         'go.useLanguageServer' = $true
         'html.format.wrapAttributes' = 'force-expand-multiline'
         'importSorter.importStringConfiguration.maximumNumberOfImportExpressionsPerLine.count' = 120
