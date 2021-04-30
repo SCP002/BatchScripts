@@ -198,7 +198,6 @@ function WriteConfig {
             'foreground' = 'green'
             'type' = 'text'
         }
-        'todo-tree.tree.showScanModeButton' = $false
         'typescript.preferences.importModuleSpecifier' = 'non-relative'
         'typescript.preferences.quoteStyle' = 'single'
         'typescript.updateImportsOnFileMove.enabled' = 'always'
