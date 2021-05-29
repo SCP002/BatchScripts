@@ -189,7 +189,7 @@ function WriteConfig {
         'javascript.preferences.quoteStyle' = 'single'
         'javascript.updateImportsOnFileMove.enabled' = 'always'
         'php.validate.executablePath' = $PHPExec
-        'terminal.integrated.defaultProfile.windows' = $Env:WinDir + '\System32\cmd.exe'
+        'terminal.integrated.defaultProfile.windows' = 'Command Prompt'
         'todo-tree.highlights.customHighlight' = @{
             'TODO' = @{}
             'FIXME' = @{}
