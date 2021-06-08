@@ -134,6 +134,11 @@ function WriteConfig {
     $VSCodeCfgFile = $Env:AppData + '\Code\User\settings.json'
 
     $VSCodeCfgObj = [PSCustomObject]@{
+        '[go]' = @{
+            'editor.rulers' = @(
+                120
+            )
+        }
         '[json]' = @{
             'editor.detectIndentation' = $false
             'editor.insertSpaces' = $true
