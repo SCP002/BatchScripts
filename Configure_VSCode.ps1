@@ -78,6 +78,7 @@ function InstallExtensions {
         'EditorConfig.EditorConfig',
         'Gruntfuggly.todo-tree',
         'k--kato.intellij-idea-keybindings',
+        'ms-ceintl.vscode-language-pack-ru',
         'rokoroku.vscode-theme-darcula',
         'Tyriar.sort-lines',
 
